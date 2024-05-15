@@ -16,19 +16,36 @@ export async function fetchInstructorStudentsHelperFunction(
     } = await supabase.auth.getUser();
     const userId = user?.id;
 
-    const { data: instructorStudents } = await supabase
+    if (!userId) {
+        console.error("No User ID found!");
+        return null;
+    }
+
+    const { data: instructorStudents, error: instructorError } = await supabase
         .from("instructor_student")
         .select("student_id")
         .eq("instructor_id", userId);
 
+    if (instructorError) {
+        console.error("Error fetching instructor students:", instructorError);
+        return null;
+    }
+
     const studentIds =
         instructorStudents?.map(({ student_id }) => student_id) || [];
 
-    const { data: existingStudents } = await supabase
+    if (studentIds.length === 0) return [];
+
+    const { data: existingStudents, error: studentError } = await supabase
         .from("students")
         .select()
         .in("id", studentIds)
         .eq("phone_number", phoneNumber);
+
+    if (studentError) {
+        console.error("Error fetching students by phone number:", studentError);
+        return null;
+    }
 
     return existingStudents;
 }
@@ -38,7 +55,11 @@ export async function fetchInstructorStudentsHelperFunction(
 export async function addStudentAction(
     prevState: FormStateAdd,
     data: FormData,
-) {
+): Promise<{
+    message: string;
+    error?: string;
+    fields?: Record<string, string>;
+}> {
     const supabase = createClient();
 
     try {
@@ -95,13 +116,23 @@ export async function getStudentsAction() {
         const {
             data: { user },
         } = await supabase.auth.getUser();
-        const user_id = user?.id;
+        const userId = user?.id;
+
+        if (!userId) {
+            console.error("No User ID found!");
+            return null;
+        }
 
         // FIX: Its grabbing all students regardless of the instructor_id because of the * in select
-        const { data: students } = await supabase
+        const { data: students, error } = await supabase
             .from("students")
             .select("*, instructor_student(student_id, instructor_id)")
-            .eq("instructor_student.instructor_id", user_id);
+            .eq("instructor_student.instructor_id", userId);
+
+        if (error) {
+            console.error("Error fetching students:", error);
+            return null;
+        }
 
         return students;
     } catch (error) {
@@ -115,12 +146,17 @@ export async function getStudentByIdAction(studentId: number) {
     const supabase = createClient();
 
     try {
-        const { data: student } = await supabase
+        const { data: student, error } = await supabase
             .from("students")
             .select()
             .eq("id", studentId);
 
-        if (student) return student[0];
+        if (error) {
+            console.error("Error fetching student:", error);
+            return null;
+        }
+
+        return student ? student[0] : null;
     } catch (error) {
         console.error("Error fetching student:", error);
         throw error;
@@ -130,7 +166,12 @@ export async function getStudentByIdAction(studentId: number) {
 export async function updateStudentInfoAction(
     prevState: FormStateUpdate,
     data: FormData,
-) {
+): Promise<{
+    message: string;
+    error?: string;
+    fields?: Record<string, string>;
+    studentId: number;
+}> {
     const supabase = createClient();
 
     try {
@@ -193,7 +234,7 @@ export async function updateStudentInfoAction(
     }
 }
 
-export async function deleteStudentAction(recordId: number) {
+export async function deleteStudentAction(recordId: number): Promise<boolean> {
     const supabase = createClient();
 
     try {
@@ -201,6 +242,11 @@ export async function deleteStudentAction(recordId: number) {
             data: { user },
         } = await supabase.auth.getUser();
         const userId = user?.id;
+
+        if (!userId) {
+            console.error("No User ID found!");
+            return false;
+        }
 
         const { error } = await supabase
             .from("instructor_student")

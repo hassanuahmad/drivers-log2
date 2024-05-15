@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { DeleteCon } from "@/app/instructor/students/deleteCon";
 import { EditCon } from "@/app/instructor/students/editCon";
+import { StudentFormValues } from "@/types/shared/forms";
 
 import { getStudentByIdAction } from "@/app/instructor/students/actions";
 
@@ -21,9 +22,11 @@ export const DropdownTableMenu = ({ recordIds }: DropdownTableMenuTypes) => {
     const [selectedStudentId, setSelectedStudentId] = useState<
         number | undefined
     >(undefined);
-    const [selectedStudentInfo, setSelectedStudentInfo] = useState();
-    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [selectedStudentInfo, setSelectedStudentInfo] = useState<
+        StudentFormValues | undefined
+    >(undefined);
+    const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
 
     const getStudentIdType = (recordIds: number | { id: number }): number => {
         return typeof recordIds === "number" ? recordIds : recordIds.id;
@@ -51,9 +54,8 @@ export const DropdownTableMenu = ({ recordIds }: DropdownTableMenuTypes) => {
                     }}
                 />
             )}
-            {/* NOTE: See if i can the same checks as for the edit just for security */}
             <DeleteCon
-                studentId={selectedStudentId as number}
+                studentId={selectedStudentId!}
                 open={isDeleteOpen}
                 onCancel={() => {
                     setIsDeleteOpen(false);
