@@ -91,6 +91,7 @@ export async function addStudentAction(
             };
         }
 
+        // BUG: It adds the student to Student table even tho it doesnt add to instructor_student table!
         const { error } = await supabase.from("students").insert(parsedData);
 
         if (error) {
@@ -123,11 +124,10 @@ export async function getStudentsAction() {
             return null;
         }
 
-        // FIX: Its grabbing all students regardless of the instructor_id because of the * in select
         const { data: students, error } = await supabase
-            .from("students")
-            .select("*, instructor_student(student_id, instructor_id)")
-            .eq("instructor_student.instructor_id", userId);
+            .from("instructor_student")
+            .select("student_id, students(*)")
+            .eq("instructor_id", userId);
 
         if (error) {
             console.error("Error fetching students:", error);
@@ -141,7 +141,6 @@ export async function getStudentsAction() {
     }
 }
 
-// FIX:: When an error occurs or when the query is null, handle that properly and show that in the FE with a toast
 export async function getStudentByIdAction(studentId: number) {
     const supabase = createClient();
 
@@ -156,10 +155,10 @@ export async function getStudentByIdAction(studentId: number) {
             return null;
         }
 
-        return student ? student[0] : null;
+        return student.length ? student[0] : null;
     } catch (error) {
         console.error("Error fetching student:", error);
-        throw error;
+        return null;
     }
 }
 

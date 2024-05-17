@@ -2,7 +2,7 @@ import StudentForm from "@/app/instructor/students/studentForm";
 import SectionHeading from "@/components/sectionHeading";
 import { DataTable } from "@/app/instructor/students/data-table";
 import { columns } from "@/app/instructor/students/columns";
-import { getStudentsAction } from "./actions";
+import { getStudentsAction } from "@/app/instructor/students/actions";
 
 export default async function Page() {
     const studentRecords = await getStudentsAction();
@@ -20,6 +20,7 @@ export default async function Page() {
                 <StudentForm />
             </div>
             <div className="container mx-auto py-10">
+                {/* FIX: Fix the type here! */}
                 <DataTable columns={columns} data={studentRecords || []} />
             </div>
         </>

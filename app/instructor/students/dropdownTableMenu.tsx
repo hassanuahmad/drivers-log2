@@ -13,6 +13,7 @@ import { EditCon } from "@/app/instructor/students/editCon";
 import { StudentFormValues } from "@/types/shared/forms";
 
 import { getStudentByIdAction } from "@/app/instructor/students/actions";
+import { toast } from "sonner";
 
 export type DropdownTableMenuTypes = {
     recordIds: number | { id: number };
@@ -35,10 +36,19 @@ export const DropdownTableMenu = ({ recordIds }: DropdownTableMenuTypes) => {
     const handleOpenEditDialog = async (studentId: number) => {
         try {
             const studentInfo = await getStudentByIdAction(studentId);
+            if (studentInfo === null) {
+                toast.error("Failed to fetch student information", {
+                    duration: 2000,
+                });
+                return;
+            }
             setSelectedStudentInfo(studentInfo);
             setIsEditOpen(true);
         } catch (error) {
             console.error("Error fetching student information in FE:", error);
+            toast.error("An unexpected error occurred", {
+                duration: 2000,
+            });
         }
     };
 

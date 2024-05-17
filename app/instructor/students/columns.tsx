@@ -2,21 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DropdownTableMenu } from "./dropdownTableMenu";
+import { StudentFormValues } from "@/types/shared/forms";
 
 export type StudentTableColumnsType = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    phone_number: string;
-    email: string;
-    driving_class: string;
-    bde: string;
-    street_address: string;
-    postal_code: string;
-    city: string;
-    province: string;
-    country: string;
-    remarks: string;
+    student_id: number;
+    students: StudentFormValues;
 };
 
 export const columns: ColumnDef<StudentTableColumnsType>[] = [
@@ -25,19 +15,19 @@ export const columns: ColumnDef<StudentTableColumnsType>[] = [
         cell: (context) => context.row.index + 1,
     },
     {
-        accessorKey: "first_name",
+        accessorKey: "students.first_name",
         header: "First Name",
     },
     {
-        accessorKey: "last_name",
+        accessorKey: "students.last_name",
         header: "Last Name",
     },
     {
-        accessorKey: "phone_number",
+        accessorKey: "students.phone_number",
         header: "Phone Number",
     },
     {
-        accessorKey: "email",
+        accessorKey: "students.email",
         header: "Email",
     },
     {
@@ -45,26 +35,26 @@ export const columns: ColumnDef<StudentTableColumnsType>[] = [
         header: "Address",
         cell: (context) => {
             const data = context.row.original;
-            return `${data.street_address} ${data.city} ${data.province} ${data.postal_code} ${data.country}`;
+            return `${data.students.street_address} ${data.students.city} ${data.students.province} ${data.students.postal_code} ${data.students.country}`;
         },
     },
     {
-        accessorKey: "driving_class",
+        accessorKey: "students.driving_class",
         header: "Class",
     },
     {
-        accessorKey: "bde",
+        accessorKey: "students.bde",
         header: "BDE",
     },
     {
-        accessorKey: "remarks",
+        accessorKey: "students.remarks",
         header: "Remarks",
     },
     {
         id: "actions",
         cell: ({ row }) => {
             const record = row.original;
-            return <DropdownTableMenu recordIds={record.id} />;
+            return <DropdownTableMenu recordIds={record.students.id || -1} />;
         },
     },
 ];
