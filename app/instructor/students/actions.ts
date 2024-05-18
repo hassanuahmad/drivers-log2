@@ -84,6 +84,14 @@ export async function addStudentAction(
             parsedData.phone_number,
         );
 
+        if (existingStudents === null) {
+            return {
+                message: "",
+                error:
+                    "An error occured while adding the student, please refresh the page or login again",
+            };
+        }
+
         if (existingStudents && existingStudents?.length > 0) {
             return {
                 message: "",
@@ -91,7 +99,6 @@ export async function addStudentAction(
             };
         }
 
-        // BUG: It adds the student to Student table even tho it doesnt add to instructor_student table!
         const { error } = await supabase.from("students").insert(parsedData);
 
         if (error) {
@@ -112,6 +119,9 @@ export async function addStudentAction(
 
 export async function getStudentsAction() {
     const supabase = createClient();
+
+    // NOTE:: When student is deleted, it somwhow still pulls the students from the GET request (maybe use a supabase fn with a parameter)
+    // Looks like its fixed but lets keep in mind until we do more testing
 
     try {
         const {
