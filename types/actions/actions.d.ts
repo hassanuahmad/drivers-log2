@@ -4,9 +4,16 @@ export type FormStateAdd = {
     fields?: Record<string, string>;
 };
 
-export type FormStateUpdate = {
+export type FormStateUpdateStudent = {
     message: string;
     error?: string;
     fields?: Record<string, string>;
     studentId: number;
+};
+
+export type FormStateUpdateVehicle = {
+    message: string;
+    error?: string;
+    fields?: Record<string, string>;
+    recordId: number;
 };

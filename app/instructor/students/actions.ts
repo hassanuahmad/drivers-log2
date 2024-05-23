@@ -3,7 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { newStudentSchema } from "@/zod/schemas";
 import { revalidatePath } from "next/cache";
-import { FormStateAdd, FormStateUpdate } from "@/types/actions/studentActions";
+import { FormStateAdd, FormStateUpdateStudent } from "@/types/actions/actions";
 
 // -----> HELPER FUNCTIONS START <-----
 
@@ -173,7 +173,7 @@ export async function getStudentByIdAction(studentId: number) {
 }
 
 export async function updateStudentInfoAction(
-    prevState: FormStateUpdate,
+    prevState: FormStateUpdateStudent,
     data: FormData,
 ): Promise<{
     message: string;

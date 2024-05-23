@@ -13,3 +13,12 @@ export type StudentFormValues = {
     country: string;
     remarks: string;
 };
+
+export interface VehicleFormValues {
+    id?: number;
+    date: string;
+    odometer: number;
+    gas: number;
+    maintenance: number;
+    remarks: string;
+}
