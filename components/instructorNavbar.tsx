@@ -28,6 +28,9 @@ const dropdownNavigation = [
   { name: "Yearly Data", href: "/instructor/yearly-data" },
 ];
 
+// Used to render all navigation in mobile view
+const allNavigation = navigation.concat(dropdownNavigation);
+
 const profileNavigation = [
   { name: "Your Profile", href: "/instructor/profile" },
   { name: "Sign out", href: "/instructor/profile" },
@@ -100,7 +103,7 @@ export default function InstructorNavbar() {
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <MenuButton className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      <MenuButton className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <CircleUserRoundIcon className="h-8 w-8" />
@@ -136,7 +139,7 @@ export default function InstructorNavbar() {
                 </div>
                 <div className="-mr-2 flex items-center sm:hidden">
                   {/* Mobile menu button */}
-                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-color">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -151,7 +154,7 @@ export default function InstructorNavbar() {
 
             <DisclosurePanel className="sm:hidden">
               <div className="space-y-1 pb-3 pt-2">
-                {navigation.map((item, itemIdx) => (
+                {allNavigation.map((item, itemIdx) => (
                   <DisclosureButton
                     key={itemIdx}
                     as="a"
