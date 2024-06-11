@@ -18,7 +18,7 @@ import logo from "@/public/logo.svg";
 
 const navigation = [
   { name: "Dashboard", href: "/instructor/dashboard" },
-  { name: "Lessons", href: "/instructor/lesson" },
+  { name: "Lessons", href: "/instructor/lessons" },
   { name: "Students", href: "/instructor/students" },
 ];
 

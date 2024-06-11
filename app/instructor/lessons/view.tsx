@@ -7,15 +7,20 @@ import {
     SelectItem,
     SelectTrigger,
 } from "@/components/ui/select";
-import { DataTable } from "@/app/instructor/vehicle/data-table";
-import { columns } from "@/app/instructor/vehicle/columns";
+import { DataTable } from "@/app/instructor/lessons/data-table";
+import { columns } from "@/app/instructor/lessons/columns";
 
 import { createClient } from "@/utils/supabase/client";
 import { monthOptions } from "@/utils/utils";
 import TotalNumbers from "@/components/totalNumbers";
-import { TotalVehicle, VehicleRecord } from "@/types/vehicle";
+import { LessonTotal, LessonRecord } from "@/types/lessons";
 
-export default function View({ getVehicleAction, getTotalVehicle }) {
+export default function View({
+    lessonRecords,
+    lessonTotal,
+    getLessonAction,
+    getLessonsTotal,
+}: any) {
     const supabase = createClient();
     const years = [
         2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
@@ -26,40 +31,56 @@ export default function View({ getVehicleAction, getTotalVehicle }) {
     const [selectedYear, setSelectedYear] = useState<number>(
         new Date().getFullYear(),
     );
-    const [vehicleRecords, setVehicleRecords] = useState<VehicleRecord[] | null>(
-        null,
+    const [allLessonRecords, setAllLessonRecords] = useState<
+        LessonRecord[] | null
+    >(lessonRecords);
+    const [totalRecords, setTotalRecords] = useState<LessonTotal | null>(
+        lessonTotal,
     );
-    const [totalRecords, setTotalRecords] = useState<TotalVehicle | null>(null);
 
     // NOTE: There is probably a better way of revalidating this than using it in a useEffect but I have to look into that
     useEffect(() => {
-        const getVehicleRecords = async () => {
+        const getLessonRecords = async () => {
             const {
                 data: { user },
             } = await supabase.auth.getUser();
             const userId = user?.id;
             if (!userId) return null;
 
-            let vehicleRecord = await getVehicleAction(selectedMonth, selectedYear);
-            let totalVehicle = await getTotalVehicle(
+            let lesson_record = await getLessonAction(selectedMonth, selectedYear);
+            let lesson_total = await getLessonsTotal(
                 userId,
                 selectedMonth,
                 selectedYear,
             );
 
-            setVehicleRecords(vehicleRecord);
-            setTotalRecords(totalVehicle);
+            setAllLessonRecords(lesson_record);
+            setTotalRecords(lesson_total);
         };
 
-        getVehicleRecords();
-    }, [selectedMonth, selectedYear, getVehicleAction]);
+        getLessonRecords();
+    }, [selectedMonth, selectedYear, getLessonAction]);
+
+    // This is to pass the name in the records so we can search in the data-table
+    const processedRecords = allLessonRecords?.map((record) => ({
+        ...record,
+        name: `${record.students.first_name} ${record.students.last_name}`,
+        bde: record.students.bde,
+    }));
+
+    function formatTotalHours(duration: number) {
+        const hours = Math.floor(duration / 60);
+        const min = duration % 60;
+        const hoursLabel = hours > 1 ? "hrs" : "hr";
+        return `${hours}${hoursLabel} ${min}m`;
+    }
 
     return (
         <>
             {/* Dropdowns Start */}
             <div
                 className={
-                    "flex flex-col justify-start space-y-4 sm:flex-row sm:justify-between sm:items-center"
+                    "flex flex-col justify-start space-y-4 md:flex-row md:justify-between md:items-center"
                 }
             >
                 <div className={"flex"}>
@@ -94,20 +115,26 @@ export default function View({ getVehicleAction, getTotalVehicle }) {
                 </div>
                 <div className="items-center">
                     <div className="flex items-center gap-4">
+                        <div className="h-10 px-4 py-2 text-sm text-gray-500">
+                            <span className="text-sm font-bold text-gray-500">
+                                Total Hours:{" "}
+                            </span>
+                            {formatTotalHours(totalRecords?.total_hours || 0)}
+                        </div>
                         <TotalNumbers
-                            title={"Gas"}
-                            numbers={totalRecords?.gas_total || 0}
+                            title={"Total Interac"}
+                            numbers={totalRecords?.total_interac || 0}
                         />
                         <TotalNumbers
-                            title={"Maintenance"}
-                            numbers={totalRecords?.maintenance_total || 0}
+                            title={"Total Cash"}
+                            numbers={totalRecords?.total_cash || 0}
                         />
                     </div>
                 </div>
             </div>
             {/* Dropdowns End */}
             <div>
-                <DataTable columns={columns} data={vehicleRecords || []} />
+                <DataTable columns={columns} data={processedRecords || []} />
             </div>
         </>
     );

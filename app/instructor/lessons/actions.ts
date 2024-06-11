@@ -1,11 +1,12 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { newVehicleSchema } from "@/zod/schemas";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { FormStateAdd, FormStateUpdateVehicle } from "@/types/actions/actions";
+import { newLessonSchema } from "@/zod/schemas";
+import { revalidatePath } from "next/cache";
+import { FormStateAdd, FormStateUpdateLesson } from "@/types/actions/actions";
+import { differenceInMinutes } from "date-fns";
 
-export async function addVehicleAction(
+export async function addLessonAction(
     prevState: FormStateAdd,
     data: FormData,
 ): Promise<{
@@ -17,7 +18,13 @@ export async function addVehicleAction(
 
     try {
         const formData = Object.fromEntries(data);
-        const parse = newVehicleSchema.safeParse(formData);
+
+        const start = new Date(`1970-01-01T${formData.start_time}:00`);
+        const end = new Date(`1970-01-01T${formData.end_time}:00`);
+        const duration = differenceInMinutes(end, start);
+        formData["duration"] = duration.toString();
+
+        const parse = newLessonSchema.safeParse(formData);
 
         if (!parse.success) {
             const fields: Record<string, string> = {};
@@ -33,31 +40,25 @@ export async function addVehicleAction(
 
         const parsedData = parse.data;
 
-        const { error } = await supabase.from("vehicle").insert(parsedData);
+        const { error } = await supabase.from("lessons").insert(parsedData);
 
         if (error) {
-            console.error(
-                "Error inserting vehicle maintenance record (addVehicleAction)",
-                error,
-            );
+            console.error("Error inserting lesson record (addLessonAction)", error);
             return {
                 message: "",
-                error: "Error inserting vehicle maintenance record",
+                error: "Error inserting lesson record",
             };
         }
 
-        revalidatePath("/instructor/vehicle");
-        return { message: "Successfully saved vehicle maintenance record" };
+        revalidatePath("/instructor/lessons");
+        return { message: "Successfully saved lesson record" };
     } catch (error) {
-        console.error(
-            "Error adding vehicle maintenance (addVehicleAction): ",
-            error,
-        );
+        console.error("Error adding lesson (addLessonAction): ", error);
         throw error;
     }
 }
 
-export async function getVehicleAction(month: string, year: number) {
+export async function getLessonAction(month: string, year: number) {
     const supabase = createClient();
 
     try {
@@ -67,46 +68,40 @@ export async function getVehicleAction(month: string, year: number) {
         const userId = user?.id;
 
         if (!userId) {
-            console.error("No User ID found in getVehicleAction!");
+            console.error("No User ID found in getLessonAction!");
             return null;
         }
 
         const monthNum = parseInt(month, 10);
 
         if (isNaN(monthNum) || monthNum < 1 || monthNum > 12) {
-            console.error("Invalid month value in getVehicleAction!");
+            console.error("Invalid month value in getLessonAction!");
             return null;
         }
 
         const startDate = new Date(year, monthNum - 1, 1);
         const endDate = new Date(year, monthNum, 1);
 
-        const { data: vehicle, error } = await supabase
-            .from("vehicle")
-            .select()
+        const { data: lessons, error } = await supabase
+            .from("lessons")
+            .select("* , students(first_name, last_name, bde)")
             .eq("instructor_id", userId)
             .gte("date", startDate.toISOString())
             .lt("date", endDate.toISOString());
 
         if (error) {
-            console.error(
-                "Error fetching vehicle maintenance records in getVehicleAction:",
-                error,
-            );
+            console.error("Error fetching lesson records in getLessonAction:", error);
             return null;
         }
 
-        return vehicle;
+        return lessons;
     } catch (error) {
-        console.error(
-            "Error fetching vehicle maintenance records in getVehicleAction:",
-            error,
-        );
+        console.error("Error fetching lesson records in getLessonAction:", error);
         throw error;
     }
 }
 
-export async function getTotalVehicle(
+export async function getLessonsTotal(
     instructor_id: string,
     month: string,
     year: number,
@@ -115,42 +110,43 @@ export async function getTotalVehicle(
 
     if (instructor_id === null) return null;
 
-    let { data, error } = await supabase.rpc("calculate_total_vehicle", {
+    let { data, error } = await supabase.rpc("calculate_lessons_total", {
         i_id: instructor_id,
         month: month,
         year: year,
     });
 
     if (error) {
-        console.error("Error getting total vehicle in getTotalVehicle ", error);
+        console.error("Error getting lessons total in getLessonsTotal ", error);
         return null;
     }
+
     return data;
 }
 
-export async function getVehicleByIdAction(recordId: number) {
+export async function getLessonByIdAction(recordId: number) {
     const supabase = createClient();
 
     try {
-        const { data: vehicle, error } = await supabase
-            .from("vehicle")
-            .select()
+        const { data: lesson, error } = await supabase
+            .from("lessons")
+            .select("*, students(first_name)")
             .eq("id", recordId);
 
         if (error) {
-            console.error("Error fetching vehicle maintenance record by id:", error);
+            console.error("Error fetching lesson record by id:", error);
             return null;
         }
 
-        return vehicle.length ? vehicle[0] : null;
+        return lesson.length ? lesson[0] : null;
     } catch (error) {
-        console.error("Error fetching vehicle maintenance record by id:", error);
+        console.error("Error fetching lesson record by id:", error);
         return null;
     }
 }
 
-export async function updateVehicleInfoAction(
-    prevState: FormStateUpdateVehicle,
+export async function updateLessonInfoAction(
+    prevState: FormStateUpdateLesson,
     data: FormData,
 ): Promise<{
     message: string;
@@ -162,7 +158,13 @@ export async function updateVehicleInfoAction(
 
     try {
         const formData = Object.fromEntries(data);
-        const parse = newVehicleSchema.safeParse(formData);
+
+        const start = new Date(`1970-01-01T${formData.start_time}`);
+        const end = new Date(`1970-01-01T${formData.end_time}`);
+        const duration = differenceInMinutes(end, start);
+        formData["duration"] = duration.toString();
+
+        const parse = newLessonSchema.safeParse(formData);
 
         if (!parse.success) {
             const fields: Record<string, string> = {};
@@ -180,31 +182,31 @@ export async function updateVehicleInfoAction(
         const parsedData = parse.data;
 
         const { error } = await supabase
-            .from("vehicle")
+            .from("lessons")
             .update(parsedData)
             .eq("id", prevState.recordId);
 
         if (error) {
-            console.error("Error updating vehicle maintenance record", error);
+            console.error("Error updating lesson record", error);
             return {
                 message: "",
-                error: "Error updating vehicle maintenance",
+                error: "Error updating lesson",
                 recordId: prevState.recordId,
             };
         }
 
-        revalidatePath("/instructor/vehicle");
+        revalidatePath("/instructor/lessons");
         return {
-            message: "Successfully updated vehicle maintenance record",
+            message: "Successfully updated lesson record",
             recordId: prevState.recordId,
         };
     } catch (error) {
-        console.error("Error updating vehicle maintenance record: ", error);
+        console.error("Error updating lesson record: ", error);
         throw error;
     }
 }
 
-export async function deleteVehicleAction(recordId: number): Promise<boolean> {
+export async function deleteLessonAction(recordId: number): Promise<boolean> {
     const supabase = createClient();
 
     try {
@@ -214,23 +216,23 @@ export async function deleteVehicleAction(recordId: number): Promise<boolean> {
         const userId = user?.id;
 
         if (!userId) {
-            console.error("No User ID found in deleteVehicleAction!");
+            console.error("No User ID found in deleteLessonAction!");
             return false;
         }
 
         const { error } = await supabase
-            .from("vehicle")
+            .from("lessons")
             .delete()
             .match({ instructor_id: userId, id: recordId });
 
         if (error) {
-            console.error("Error deleting the vehicle maintenance record", error);
+            console.error("Error deleting the lesson record", error);
             return false;
         }
-        revalidatePath("/instructor/vehicle");
+        revalidatePath("/instructor/lessons");
         return true;
     } catch (error) {
-        console.error("Error: Deleting vehicle maintenance record", error);
+        console.error("Error: Deleting lesson record", error);
         throw error;
     }
 }

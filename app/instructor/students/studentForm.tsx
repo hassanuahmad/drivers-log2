@@ -31,9 +31,10 @@ import { addStudentAction } from "@/app/instructor/students/actions";
 
 export default function StudentForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const { pending } = useFormStatus();
+
   const [hiddenDrivingClassValue, setHiddenDrivingClassValue] = useState("G2");
   const [hiddenBdeValue, setHiddenBdeValue] = useState("No");
-  const { pending } = useFormStatus();
 
   const [state, formAction] = useFormState(addStudentAction, {
     message: "",

@@ -1,5 +1,52 @@
 import { z } from "zod";
 
+export const newLessonSchema = z.object({
+    selected_student: z
+        .string({
+            required_error: "Student must be selected",
+            invalid_type_error: "Student must be selected",
+        })
+        .min(1, { message: "Student must be selected" }),
+    date: z.string().date(),
+    start_time: z
+        .string({
+            required_error: "Start Time is required",
+            invalid_type_error: "Start Time is required",
+        })
+        .min(1, { message: "Start Time is required" }),
+    end_time: z
+        .string({
+            required_error: "End Time is required",
+            invalid_type_error: "End Time is required",
+        })
+        .min(1, { message: "End Time is required" }),
+    duration: z.coerce.number().int().nonnegative().optional(),
+    payment_type: z
+        .string({
+            required_error: "Payment Type is required",
+            invalid_type_error: "Payment Type is required",
+        })
+        .min(1, { message: "Payment Type is required" }),
+    payment_amount: z.coerce
+        .number()
+        .nonnegative()
+        .refine(
+            (n) => {
+                const decimalPart = n.toString().split(".")[1] || "";
+                return decimalPart.length <= 2;
+            },
+            { message: "Max 2 decimal places" },
+        )
+        .transform((n) => parseFloat(n.toFixed(2))),
+    road_test: z
+        .string({
+            required_error: "Road Test is required",
+            invalid_type_error: "Road Test is required",
+        })
+        .min(1, { message: "Road Test is required" }),
+    remarks: z.string().optional(),
+});
+
 export const newStudentSchema = z.object({
     first_name: z
         .string({

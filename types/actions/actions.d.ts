@@ -17,3 +17,10 @@ export type FormStateUpdateVehicle = {
     fields?: Record<string, string>;
     recordId: number;
 };
+
+export interface FormStateUpdateLesson {
+    message: string;
+    error?: string;
+    fields?: Record<string, string>;
+    recordId: number;
+}

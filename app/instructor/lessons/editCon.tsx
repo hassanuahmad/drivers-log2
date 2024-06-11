@@ -25,6 +25,13 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import {
     Popover,
     PopoverContent,
     PopoverTrigger,
@@ -32,26 +39,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 
-import { newVehicleSchema } from "@/zod/schemas";
-import { VehicleFormValues } from "@/types/shared/forms";
-import { updateVehicleInfoAction } from "@/app/instructor/vehicle/actions";
+import { newLessonSchema } from "@/zod/schemas";
+import {
+    LessonEditConType,
+    LessonEditInitialFormValues,
+} from "@/types/lessons";
+import { updateLessonInfoAction } from "@/app/instructor/lessons/actions";
 
-/* export type EditConProps = {
-    vehicleInfo: VehicleFormValues;
+export type EditConProps = {
+    lessonInfo: LessonEditConType;
     open: boolean;
     onCancel: () => void;
-}; */
+};
 
-export const EditCon = ({ vehicleInfo, open, onCancel }) => {
+export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
     const formRef = useRef<HTMLFormElement>(null);
 
-    const [state, formAction] = useFormState(updateVehicleInfoAction, {
+    const [state, formAction] = useFormState(updateLessonInfoAction, {
         message: "",
         error: "",
-        recordId: vehicleInfo.id as number,
+        recordId: lessonInfo.id as number,
     });
 
-    const { date, odometer, gas, maintenance, remarks } = vehicleInfo;
+    const {
+        selected_student,
+        date,
+        start_time,
+        end_time,
+        payment_type,
+        payment_amount,
+        road_test,
+        remarks,
+    } = lessonInfo;
 
     useEffect(() => {
         const { message, error } = state || {};
@@ -67,20 +86,29 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
         }
     }, [state, toast]);
 
-    const initialVehicleFormValues = {
+    const selected_student_string = selected_student.toString();
+
+    const initialLessonFormValues: LessonEditInitialFormValues = {
+        selected_student: selected_student_string,
         date,
-        odometer,
-        gas,
-        maintenance,
+        start_time,
+        end_time,
+        payment_type,
+        payment_amount,
+        road_test,
         remarks,
+        ...(state?.fields ?? {}),
     };
 
     const [hiddenDateValue, setHiddenDateValue] = useState(date);
+    const [hiddenPaymentTypeValue, setHiddenPaymentTypeValue] =
+        useState(payment_type);
+    const [hiddenRoadTestValue, setHiddenRoadTestValue] = useState(road_test);
     const { pending } = useFormStatus();
 
-    const form = useForm({
-        resolver: zodResolver(newVehicleSchema),
-        defaultValues: initialVehicleFormValues,
+    const form = useForm<z.infer<typeof newLessonSchema>>({
+        resolver: zodResolver(newLessonSchema),
+        defaultValues: initialLessonFormValues,
     });
 
     return (
@@ -88,7 +116,9 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
             <Dialog open={open} onOpenChange={onCancel}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Edit Vehicle Maintenance Record</DialogTitle>
+                        <DialogTitle>
+                            Edit {lessonInfo.students.first_name}'s Lesson
+                        </DialogTitle>
                     </DialogHeader>
                     <div>
                         <Form {...form}>
@@ -104,6 +134,12 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
                                 className="space-y-8"
                             >
                                 <div className="my-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                    {/* Added this hidden input because the FormDate requires it */}
+                                    <input
+                                        type="hidden"
+                                        name="selected_student"
+                                        value={selected_student}
+                                    />
                                     <FormField
                                         control={form.control}
                                         name="date"
@@ -164,10 +200,68 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="odometer"
+                                        name="start_time"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Odometer</FormLabel>
+                                                <FormLabel>Start Time</FormLabel>
+                                                <FormControl>
+                                                    <Input type={"time"} {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="end_time"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>End Time</FormLabel>
+                                                <FormControl>
+                                                    <Input type={"time"} {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="payment_type"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Payment Type</FormLabel>
+                                                <Select
+                                                    onValueChange={(value) => {
+                                                        field.onChange(value);
+                                                        setHiddenPaymentTypeValue(value);
+                                                    }}
+                                                    value={field.value}
+                                                >
+                                                    <FormControl>
+                                                        <SelectTrigger>
+                                                            <SelectValue />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="Interac">Interac</SelectItem>
+                                                        <SelectItem value="Cash">Cash</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                                <input
+                                                    type="hidden"
+                                                    name="payment_type"
+                                                    value={hiddenPaymentTypeValue}
+                                                />
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="payment_amount"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Payment Amount</FormLabel>
                                                 <FormControl>
                                                     <Input type={"number"} {...field} />
                                                 </FormControl>
@@ -177,26 +271,33 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="gas"
+                                        name="road_test"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Gas</FormLabel>
-                                                <FormControl>
-                                                    <Input type={"number"} {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="maintenance"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Maintenance</FormLabel>
-                                                <FormControl>
-                                                    <Input type={"number"} {...field} />
-                                                </FormControl>
+                                                <FormLabel>Road Test</FormLabel>
+                                                <Select
+                                                    onValueChange={(value) => {
+                                                        field.onChange(value);
+                                                        setHiddenRoadTestValue(value);
+                                                    }}
+                                                    value={field.value}
+                                                >
+                                                    <FormControl>
+                                                        <SelectTrigger>
+                                                            <SelectValue />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="No">No</SelectItem>
+                                                        <SelectItem value="Pass">Pass</SelectItem>
+                                                        <SelectItem value="Fail">Fail</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                                <input
+                                                    type="hidden"
+                                                    name="road_test"
+                                                    value={hiddenRoadTestValue}
+                                                />
                                                 <FormMessage />
                                             </FormItem>
                                         )}
