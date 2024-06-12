@@ -17,6 +17,19 @@ export type LessonRecord = {
     };
 };
 
+export type StudentProgressLessonType = {
+    id?: number;
+    selected_student: number;
+    duration: number;
+    date: string;
+    start_time: string;
+    end_time: string;
+    payment_type: string;
+    payment_amount: number;
+    road_test: string;
+    remarks: string;
+};
+
 export type LessonTotal = {
     total_hours: number;
     total_interac: number;
