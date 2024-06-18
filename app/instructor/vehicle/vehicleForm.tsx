@@ -200,7 +200,7 @@ export default function VehicleForm() {
                                 )}
                             />
                         </div>
-                        <Button type="submit" disabled={pending}>
+                        <Button variant="primary" type="submit" disabled={pending}>
                             Save Maintenance
                         </Button>
                     </div>

@@ -384,7 +384,7 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                                 )}
                             />
                         </div>
-                        <Button type="submit" disabled={pending}>
+                        <Button variant="primary" type="submit" disabled={pending}>
                             Save Lesson
                         </Button>
                     </div>

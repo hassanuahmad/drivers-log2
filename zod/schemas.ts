@@ -1,5 +1,21 @@
 import { z } from "zod";
 
+export const registerSchema = z.object({
+    first_name: z.string().min(2).max(50),
+    last_name: z.string().min(2).max(50),
+    email: z.string().email(),
+});
+
+export const loginSchema = z.object({
+    email: z.string().email(),
+});
+
+export const verifyOtpSchema = z.object({
+    pin: z.string().min(6, {
+        message: "Your code must be 6 characters.",
+    }),
+});
+
 export const newLessonSchema = z.object({
     selected_student: z
         .string({
