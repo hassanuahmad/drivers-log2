@@ -134,7 +134,7 @@ export default function VerifyOtp({
                     <Link
                         href="/login"
                         onClick={handleVerifyText}
-                        className="font-semibold leading-6 text-primary-color hover:text-indigo-500"
+                        className="font-semibold leading-6 text-primary-color hover:text-primary-color-600"
                     >
                         Login again
                     </Link>
