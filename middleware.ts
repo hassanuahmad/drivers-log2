@@ -12,6 +12,11 @@ export async function middleware(request: NextRequest) {
     if (!user && request.nextUrl.pathname.startsWith("/instructor/")) {
         return NextResponse.redirect(new URL("/", request.url));
     }
+
+    if (user && !request.nextUrl.pathname.startsWith("/instructor/")) {
+        return NextResponse.redirect(new URL("/instructor/lessons", request.url));
+    }
+
     return await updateSession(request);
 }
 

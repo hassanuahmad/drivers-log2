@@ -14,7 +14,7 @@ import { CircleUserRoundIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "@/public/logo.svg";
+import logo from "@/public/newLogo.svg";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -63,11 +63,13 @@ export default function InstructorNavbar() {
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex h-16 justify-between">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <Image
-                                        src={logo}
-                                        alt="Drivers Log Logo"
-                                        className="w-auto h-16"
-                                    />
+                                    <Link href="/instructor/lessons">
+                                        <Image
+                                            src={logo}
+                                            alt="Drivers Log Logo"
+                                            className="w-auto h-48"
+                                        />
+                                    </Link>
                                 </div>
                                 <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-2 text-gray-900">
                                     {navigation.map((item, itemIdx) => (

@@ -6,7 +6,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import Image from "next/image";
-import logo from "@/public/logo.svg";
+import logo from "@/public/newLogo.svg";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
@@ -30,8 +30,8 @@ export default function HomePageNavbar() {
                             <span className="sr-only">Open main menu</span>
                             <Bars3Icon className="h-5 w-5 text-gray-900" aria-hidden="true" />
                         </button>
-                        <Link href="/homepage/home">
-                            <Image src={logo} alt="logo" className="w-auto h-16" />
+                        <Link href="/">
+                            <Image src={logo} alt="logo" className="w-auto h-48" />
                         </Link>
                     </div>
                     <nav className="hidden md:flex md:gap-x-2 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
