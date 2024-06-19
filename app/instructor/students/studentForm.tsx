@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import { newStudentSchema } from "@/zod/schemas";
 import { StudentFormValues } from "@/types/shared/forms";
 import { addStudentAction } from "@/app/instructor/students/actions";
+import { useMapsLibrary } from "@vis.gl/react-google-maps";
 
 export default function StudentForm() {
     const formRef = useRef<HTMLFormElement>(null);
@@ -35,6 +36,70 @@ export default function StudentForm() {
 
     const [hiddenDrivingClassValue, setHiddenDrivingClassValue] = useState("G2");
     const [hiddenBdeValue, setHiddenBdeValue] = useState("No");
+
+    // Ref: https://github.com/visgl/react-google-maps/blob/main/examples/autocomplete/src/autocomplete-classic.tsx
+    const inputRef = useRef<HTMLInputElement>(null);
+    const places = useMapsLibrary("places");
+    const [streetAddress, setStreetAddress] = useState("");
+
+    useEffect(() => {
+        if (!places || !inputRef.current) return;
+
+        const options = {
+            fields: ["address_components"],
+            types: ["address"],
+        };
+
+        const autocomplete = new places.Autocomplete(inputRef.current, options);
+
+        autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            if (!place.address_components) return;
+
+            const addressComponents = {
+                street_address: "",
+                postal_code: "",
+                city: "",
+                province: "",
+                country: "",
+            };
+
+            place.address_components.forEach((component) => {
+                const componentType = component.types[0];
+                switch (componentType) {
+                    case "street_number":
+                        addressComponents.street_address = `${component.long_name} ${addressComponents.street_address}`;
+                        break;
+                    case "route":
+                        addressComponents.street_address += component.long_name;
+                        break;
+                    case "postal_code":
+                        addressComponents.postal_code = component.long_name;
+                        break;
+                    case "locality":
+                        addressComponents.city = component.long_name;
+                        break;
+                    case "administrative_area_level_1":
+                        addressComponents.province = component.short_name;
+                        break;
+                    case "country":
+                        addressComponents.country = component.long_name;
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            const finalStreetAddress = addressComponents.street_address.trim();
+            setStreetAddress(finalStreetAddress);
+
+            form.setValue("street_address", finalStreetAddress);
+            form.setValue("postal_code", addressComponents.postal_code);
+            form.setValue("city", addressComponents.city);
+            form.setValue("province", addressComponents.province);
+            form.setValue("country", addressComponents.country);
+        });
+    }, [places]);
 
     const [state, formAction] = useFormState(addStudentAction, {
         message: "",
@@ -210,13 +275,21 @@ export default function StudentForm() {
                                 <FormItem>
                                     <FormLabel>Street Address</FormLabel>
                                     <FormControl>
-                                        <Input {...field} />
-                                        {/*
-                <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-                  <Input {...field} />
-                </Autocomplete>
-                */}
+                                        <Input
+                                            placeholder="Enter a location"
+                                            ref={inputRef}
+                                            value={streetAddress}
+                                            onChange={(e) => {
+                                                field.onChange(e);
+                                                setStreetAddress(e.target.value);
+                                            }}
+                                        />
                                     </FormControl>
+                                    <input
+                                        type="hidden"
+                                        name="street_address"
+                                        value={streetAddress}
+                                    />
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -290,6 +363,7 @@ export default function StudentForm() {
                             Save Student
                         </Button>
                     </div>
+                    <div className="border-b border-gray-200" />
                 </form>
             </Form>
         </>
