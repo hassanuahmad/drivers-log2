@@ -18,11 +18,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { toast } from "sonner";
+import { handleSignUp } from "@/app/auth/handleAuth";
+import { RegisterFormValues } from "@/types/shared/forms";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 import logo from "@/public/logo.svg";
-import { handleSignUp } from "@/app/auth/handleAuth";
 import VerifyOtp from "@/components/verifyOtp";
 
 export default function Page() {
@@ -51,8 +52,7 @@ export default function Page() {
         }
     }, [state, toast]);
 
-    //FIX: fix the type here please
-    const initialRegisterValues: any = {
+    const initialRegisterValues: RegisterFormValues = {
         first_name: "",
         last_name: "",
         email: "",
