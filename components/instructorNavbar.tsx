@@ -17,6 +17,15 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "@/public/newLogo.svg";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
 
 const navigation = [
     // { name: "Dashboard", href: "/instructor/dashboard" },
@@ -33,20 +42,52 @@ const dropdownNavigation = [
 // Used to render all navigation in mobile view
 const allNavigation = navigation.concat(dropdownNavigation);
 
-const profileNavigation = [
-    // { name: "Your Profile", href: "/instructor/profile" },
-    // { name: "Sign out", href: "/instructor/profile" },
-];
+/* const profileNavigation = [
+    { name: "Profile", href: "/instructor/profile" },
+    { name: "Sign out", href: "/instructor/profile" },
+]; */
 
 function classNames(...classes: (string | false | null | undefined)[]): string {
     return classes.filter(Boolean).join(" ");
 }
 
+type UserInfoType = {
+    email: string;
+    name: string;
+};
+
 export default function InstructorNavbar() {
     const router = useRouter();
+    const supabase = createClient();
+    const insightoLink = "https://insigh.to/b/drivers-log";
+    const [userInfo, setUserInfo] = useState<UserInfoType>({
+        email: "",
+        name: "",
+    });
+
+    useEffect(() => {
+        const getUserEmail = async () => {
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
+
+            if (!user) {
+                console.error("No User found!");
+                return null;
+            }
+
+            const name = `${user.user_metadata.first_name} ${user.user_metadata.last_name}`;
+
+            setUserInfo({
+                email: user.email ?? "",
+                name: name,
+            });
+        };
+
+        getUserEmail();
+    }, []);
 
     async function signOut() {
-        const supabase = createClient();
         const { error } = await supabase.auth.signOut();
         if (error) {
             console.error("Error signing out: ", error.message);
@@ -117,54 +158,39 @@ export default function InstructorNavbar() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
                                     {/* Profile dropdown */}
-                                    <Menu as="div" className="relative ml-3">
-                                        <div>
-                                            <MenuButton className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-color focus:ring-offset-2">
+                                    <div className="relative ml-3 flex items-center">
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger>
                                                 <span className="absolute -inset-1.5" />
                                                 <span className="sr-only">Open user menu</span>
                                                 <CircleUserRoundIcon className="h-8 w-8" />
-                                            </MenuButton>
-                                        </div>
-                                        <Transition
-                                            enter="transition ease-out duration-200"
-                                            enterFrom="transform opacity-0 scale-95"
-                                            enterTo="transform opacity-100 scale-100"
-                                            leave="transition ease-in duration-75"
-                                            leaveFrom="transform opacity-100 scale-100"
-                                            leaveTo="transform opacity-0 scale-95"
-                                        >
-                                            <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent>
+                                                <DropdownMenuLabel>
+                                                    {userInfo.name}
+                                                    <br />
+                                                    <span className="font-normal">{userInfo.email}</span>
+                                                </DropdownMenuLabel>
+                                                <DropdownMenuSeparator />
+                                                {/*
                                                 {profileNavigation.map((item, itemIdx) => (
-                                                    <MenuItem key={itemIdx}>
-                                                        {({ focus }) => (
-                                                            <Link
-                                                                href={item.href}
-                                                                className={classNames(
-                                                                    focus ? "bg-gray-100" : "",
-                                                                    "block px-4 py-2 text-sm text-gray-700",
-                                                                )}
-                                                            >
-                                                                {item.name}
-                                                            </Link>
-                                                        )}
-                                                    </MenuItem>
+                                                    <div key={itemIdx}>
+                                                        <DropdownMenuItem>{item.name}</DropdownMenuItem>
+                                                    </div>
                                                 ))}
-                                                <MenuItem>
-                                                    {({ focus }) => (
-                                                        <div
-                                                            className={classNames(
-                                                                focus ? "bg-gray-100" : "",
-                                                                "block px-4 py-2 text-sm text-gray-700",
-                                                            )}
-                                                            onClick={signOut}
-                                                        >
-                                                            Sign Out
-                                                        </div>
-                                                    )}
-                                                </MenuItem>
-                                            </MenuItems>
-                                        </Transition>
-                                    </Menu>
+                                                */}
+                                                <DropdownMenuItem>
+                                                    <Link href={insightoLink} target="_blank">
+                                                        Feature Request
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuSeparator />
+                                                <DropdownMenuItem onClick={signOut}>
+                                                    Sign Out
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
                                 </div>
                                 <div className="-mr-2 flex items-center sm:hidden">
                                     {/* Mobile menu button */}
@@ -201,14 +227,15 @@ export default function InstructorNavbar() {
                                     </div>
                                     <div className="ml-3">
                                         <div className="text-base font-medium text-gray-800">
-                                            Tom Cook
+                                            {userInfo.name}
                                         </div>
                                         <div className="text-sm font-medium text-gray-500">
-                                            tom@example.com
+                                            {userInfo.email}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mt-3 space-y-1">
+                                    {/*
                                     {profileNavigation.map((item, itemIdx) => (
                                         <DisclosureButton
                                             key={itemIdx}
@@ -219,6 +246,15 @@ export default function InstructorNavbar() {
                                             {item.name}
                                         </DisclosureButton>
                                     ))}
+                                    */}
+                                    <DisclosureButton
+                                        as="a"
+                                        href={insightoLink}
+                                        target="_blank"
+                                        className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                                    >
+                                        Feature Request
+                                    </DisclosureButton>
                                     <DisclosureButton
                                         as="a"
                                         onClick={signOut}
