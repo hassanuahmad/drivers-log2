@@ -15,7 +15,7 @@ export const columns: ColumnDef<StudentTableColumnsType>[] = [
         cell: (context) => context.row.index + 1,
     },
     {
-        accessorKey: "students.first_name",
+        accessorKey: "first_name",
         header: "First Name",
     },
     {

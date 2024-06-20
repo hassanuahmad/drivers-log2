@@ -5,24 +5,23 @@ import { columns } from "@/app/instructor/students/columns";
 import { getStudentsAction } from "@/app/instructor/students/actions";
 
 export default async function Page() {
-  const studentRecords = await getStudentsAction();
+    const studentRecords = await getStudentsAction();
 
-  return (
-    <>
-      <div className="container mx-auto">
-        <SectionHeading
-          title="Student Information"
-          description="Add student information so that they can be assigned to a lesson and also they can be
+    return (
+        <>
+            <div className="container mx-auto">
+                <SectionHeading
+                    title="Student Information"
+                    description="Add student information so that they can be assigned to a lesson and also they can be
                     viewed below in the table."
-        />
-      </div>
-      <div className="container mx-auto">
-        <StudentForm />
-      </div>
-      <div className="container mx-auto py-10">
-        {/* FIX: Fix the type here! */}
-        <DataTable columns={columns} data={studentRecords || []} />
-      </div>
-    </>
-  );
+                />
+            </div>
+            <div className="container mx-auto">
+                <StudentForm />
+            </div>
+            <div className="container mx-auto py-10">
+                <DataTable columns={columns} data={studentRecords || []} />
+            </div>
+        </>
+    );
 }

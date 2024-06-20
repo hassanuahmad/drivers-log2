@@ -21,6 +21,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@stripe/stripe-js": "^4.0.0",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.5",
     "@tailwindcss/forms": "^0.5.7",
@@ -38,6 +39,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.3",
     "sonner": "^1.4.41",
+    "stripe": "^15.12.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.5"
   },

@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { newStudentSchema } from "@/zod/schemas";
 import { revalidatePath } from "next/cache";
+import { StudentFormValues } from "@/types/shared/forms";
 import { FormStateAdd, FormStateUpdateStudent } from "@/types/actions/actions";
 
 // -----> HELPER FUNCTIONS START <-----
@@ -117,7 +118,13 @@ export async function addStudentAction(
     }
 }
 
-export async function getStudentsAction() {
+export interface StudentRecordType {
+    student_id: number;
+    students: StudentFormValues;
+    first_name: string;
+}
+
+export async function getStudentsAction(): Promise<StudentRecordType[] | null> {
     const supabase = createClient();
 
     // NOTE:: When student is deleted, it somwhow still pulls the students from the GET request (maybe use a supabase fn with a parameter)
@@ -134,7 +141,7 @@ export async function getStudentsAction() {
             return null;
         }
 
-        const { data: students, error } = await supabase
+        const { data, error } = await supabase
             .from("instructor_student")
             .select("student_id, students(*)")
             .eq("instructor_id", userId);
@@ -143,6 +150,14 @@ export async function getStudentsAction() {
             console.error("Error fetching students:", error);
             return null;
         }
+
+        // Type assertion to ensure correct typing
+        // FIX: Fix the type : any here
+        const students: StudentRecordType[] = data.map((record: any) => ({
+            student_id: record.student_id,
+            students: record.students as StudentFormValues,
+            first_name: record.students.first_name,
+        }));
 
         return students;
     } catch (error) {
