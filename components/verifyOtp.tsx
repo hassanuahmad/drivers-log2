@@ -64,7 +64,7 @@ export default function VerifyOtp({
     const form = useForm<z.infer<typeof verifyOtpSchema>>({
         resolver: zodResolver(verifyOtpSchema),
         defaultValues: {
-            pin: "",
+            code: "",
         },
     });
 
@@ -84,7 +84,7 @@ export default function VerifyOtp({
                 >
                     <FormField
                         control={form.control}
-                        name="pin"
+                        name="code"
                         render={({ field }) => (
                             <FormItem className="text-center">
                                 <FormLabel className="text-center">

@@ -11,7 +11,7 @@ export const loginSchema = z.object({
 });
 
 export const verifyOtpSchema = z.object({
-    pin: z.string().min(6, {
+    code: z.string().min(6, {
         message: "Your code must be 6 characters.",
     }),
 });
