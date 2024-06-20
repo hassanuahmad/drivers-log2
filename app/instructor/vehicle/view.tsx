@@ -15,7 +15,12 @@ import { monthOptions } from "@/utils/utils";
 import TotalNumbers from "@/components/totalNumbers";
 import { TotalVehicle, VehicleRecord } from "@/types/vehicle";
 
-export default function View({ getVehicleAction, getTotalVehicle }) {
+export default function View({
+    getVehicleAction,
+    getTotalVehicle,
+    vehicleRecords,
+    vehicleTotal,
+}) {
     const supabase = createClient();
     const years = [
         2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
@@ -26,10 +31,12 @@ export default function View({ getVehicleAction, getTotalVehicle }) {
     const [selectedYear, setSelectedYear] = useState<number>(
         new Date().getFullYear(),
     );
-    const [vehicleRecords, setVehicleRecords] = useState<VehicleRecord[] | null>(
-        null,
+    const [allVehicleRecords, setAllVehicleRecords] = useState<
+        VehicleRecord[] | null
+    >(vehicleRecords);
+    const [totalRecords, setTotalRecords] = useState<TotalVehicle | null>(
+        vehicleTotal,
     );
-    const [totalRecords, setTotalRecords] = useState<TotalVehicle | null>(null);
 
     // NOTE: There is probably a better way of revalidating this than using it in a useEffect but I have to look into that
     useEffect(() => {
@@ -47,7 +54,7 @@ export default function View({ getVehicleAction, getTotalVehicle }) {
                 selectedYear,
             );
 
-            setVehicleRecords(vehicleRecord);
+            setAllVehicleRecords(vehicleRecord);
             setTotalRecords(totalVehicle);
         };
 
@@ -107,7 +114,7 @@ export default function View({ getVehicleAction, getTotalVehicle }) {
             </div>
             {/* Dropdowns End */}
             <div>
-                <DataTable columns={columns} data={vehicleRecords || []} />
+                <DataTable columns={columns} data={allVehicleRecords || []} />
             </div>
         </>
     );

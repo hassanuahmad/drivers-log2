@@ -4,6 +4,7 @@ import StudentProgressForm from "@/app/instructor/student-progress/studentProgre
 
 export default async function Page() {
     const studentRecords = await getInstructorStudentsAction();
+
     return (
         <>
             <div className="container mx-auto">
