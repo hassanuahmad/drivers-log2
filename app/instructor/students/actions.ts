@@ -144,7 +144,8 @@ export async function getStudentsAction(): Promise<StudentRecordType[] | null> {
         const { data, error } = await supabase
             .from("instructor_student")
             .select("student_id, students(*)")
-            .eq("instructor_id", userId);
+            .eq("instructor_id", userId)
+            .order("created_at", { ascending: false });
 
         if (error) {
             console.error("Error fetching students:", error);

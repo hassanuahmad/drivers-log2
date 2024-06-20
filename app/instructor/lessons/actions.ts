@@ -87,7 +87,9 @@ export async function getLessonAction(month: string, year: number) {
             .select("* , students(first_name, last_name, bde)")
             .eq("instructor_id", userId)
             .gte("date", startDate.toISOString())
-            .lt("date", endDate.toISOString());
+            .lt("date", endDate.toISOString())
+            .order("date")
+            .order("start_time");
 
         if (error) {
             console.error("Error fetching lesson records in getLessonAction:", error);

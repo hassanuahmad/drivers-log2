@@ -116,7 +116,10 @@ export default function StudentForm() {
             toast[variant](description, {
                 duration: 3000,
             });
-            if (message) form.reset(initialStudentFormValues);
+            if (message) {
+                form.reset(initialStudentFormValues);
+                setStreetAddress("");
+            }
         }
     }, [state, toast]);
 

@@ -57,7 +57,9 @@ export default function StudentProgressForm({
         const { data: student, error } = await supabase
             .from("lessons")
             .select("* , students(first_name, last_name, bde)")
-            .eq("selected_student", record.student_id);
+            .eq("selected_student", record.student_id)
+            .order("date")
+            .order("start_time");
 
         if (error) {
             console.error(

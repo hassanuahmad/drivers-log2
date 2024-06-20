@@ -86,7 +86,8 @@ export async function getVehicleAction(month: string, year: number) {
             .select()
             .eq("instructor_id", userId)
             .gte("date", startDate.toISOString())
-            .lt("date", endDate.toISOString());
+            .lt("date", endDate.toISOString())
+            .order("date");
 
         if (error) {
             console.error(
