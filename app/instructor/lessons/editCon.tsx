@@ -319,7 +319,7 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" disabled={pending}>
+                                    <Button variant="primary" type="submit" disabled={pending}>
                                         Save changes
                                     </Button>
                                 </DialogFooter>

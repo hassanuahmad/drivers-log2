@@ -218,7 +218,7 @@ export const EditCon = ({ vehicleInfo, open, onCancel }) => {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit" disabled={pending}>
+                                    <Button variant="primary" type="submit" disabled={pending}>
                                         Save changes
                                     </Button>
                                 </DialogFooter>
