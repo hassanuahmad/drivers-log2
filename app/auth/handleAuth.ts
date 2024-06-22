@@ -30,6 +30,7 @@ export async function handleSignUp(prevState: FormState, data: FormData) {
                 data: {
                     first_name: parsedData.first_name,
                     last_name: parsedData.last_name,
+                    has_access: false,
                 },
             },
         });

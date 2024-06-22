@@ -5,16 +5,39 @@ import { createClient } from "@/utils/supabase/server";
 //TODO: See how we can improve the middleware
 export async function middleware(request: NextRequest) {
     const supabase = createClient();
+
     const {
         data: { user },
+        error,
     } = await supabase.auth.getUser();
 
-    if (!user && request.nextUrl.pathname.startsWith("/instructor/")) {
-        return NextResponse.redirect(new URL("/", request.url));
+    if (error) {
+        console.error("Error fetching user in middleware: ", error);
     }
 
-    if (user && !request.nextUrl.pathname.startsWith("/instructor/")) {
-        return NextResponse.redirect(new URL("/instructor/lessons", request.url));
+    const pathname = request.nextUrl.pathname;
+
+    // If user is not logged in, redirect to home if trying to access /instructor or /access
+    if (!user) {
+        if (pathname.startsWith("/instructor") || pathname.startsWith("/access")) {
+            return NextResponse.redirect(new URL("/", request.url));
+        }
+    } else {
+        // If user is logged in but does not have access, redirect to /access if trying to access any other page
+        if (user.user_metadata.has_access === false) {
+            if (pathname !== "/access") {
+                return NextResponse.redirect(new URL("/access", request.url));
+            }
+        }
+
+        // If user is logged in and has access, redirect to /instructor/lessons if trying to access other routes
+        if (user.user_metadata.has_access === true) {
+            if (!pathname.startsWith("/instructor")) {
+                return NextResponse.redirect(
+                    new URL("/instructor/lessons", request.url),
+                );
+            }
+        }
     }
 
     return await updateSession(request);

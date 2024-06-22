@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
 const includedFeatures = [
@@ -10,19 +9,25 @@ const includedFeatures = [
     "Communication Tools",
 ];
 
-export default function Pricing() {
+type PricingProps = {
+    heading: string;
+    subheading: string;
+    ButtonComponent: React.ComponentType<any>;
+};
+
+export default function Pricing({
+    heading,
+    subheading,
+    ButtonComponent,
+}: PricingProps) {
     return (
         <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto container px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl sm:text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        Simple one-time payment, lifetime value
+                        {heading}
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Get unlimited access to all the tools and features you need to
-                        manage your driving school or individual instructing effectively and
-                        efficiently.
-                    </p>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">{subheading}</p>
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
                     <div className="p-8 sm:p-10 lg:flex-auto">
@@ -64,15 +69,13 @@ export default function Pricing() {
                                 </p>
                                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                                     <span className="text-5xl font-bold tracking-tight text-gray-900">
-                                        $119
+                                        $149
                                     </span>
                                     <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
                                         CAD
                                     </span>
                                 </p>
-                                <Button variant="primary" className="mt-10 block w-full">
-                                    Get access
-                                </Button>
+                                <ButtonComponent />
                                 <p className="mt-6 text-xs leading-5 text-gray-600">
                                     Invoices and receipts available for easy company
                                     reimbursement.

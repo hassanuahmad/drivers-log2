@@ -57,7 +57,8 @@ export default function VerifyOtp({
             toast[variant](description, {
                 duration: 3000,
             });
-            if (message) router.push("/instructor/lessons");
+            // if (message) router.push("/instructor/lessons");
+            if (message) router.push("/access");
         }
     }, [state, toast]);
 
