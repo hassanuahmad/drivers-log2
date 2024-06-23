@@ -3,7 +3,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export const handlePayment = async (email: string) => {
-  console.log("BASE: ", BASE_URL);
+  console.log("BASE URL: ", BASE_URL);
   try {
     const res = await fetch(`${BASE_URL}/api/stripe`, {
       method: "POST",
