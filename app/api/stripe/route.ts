@@ -5,7 +5,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export async function POST(req: NextRequest) {
-  console.log("Stripe: ", stripe);
   try {
     const { email } = await req.json();
 
@@ -26,8 +25,6 @@ export async function POST(req: NextRequest) {
       cancel_url: `${BASE_URL}/access`,
       automatic_tax: { enabled: true },
     });
-
-    console.log("Link: ", session.url);
 
     if (!session.url) {
       throw new Error("Stripe session URL is undefined");

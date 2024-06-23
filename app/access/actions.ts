@@ -3,7 +3,6 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export const handlePayment = async (email: string) => {
-  console.log("BASE URL: ", BASE_URL);
   try {
     const res = await fetch(`${BASE_URL}/api/stripe`, {
       method: "POST",
@@ -12,8 +11,6 @@ export const handlePayment = async (email: string) => {
       },
       body: JSON.stringify({ email }),
     });
-
-    console.log("res: ", res);
 
     if (!res.ok) {
       throw new Error("Failed to create checkout session");
