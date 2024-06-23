@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
                 const { data: user, error: user_id_error } = await supabase
                     .from("instructors")
-                    .select("id")
+                    .select("instructor_id")
                     .eq("email", userEmail)
                     .limit(1);
 
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
                     throw new Error("User not found");
                 }
 
-                const user_id = user[0].id;
+                const user_id = user[0].instructor_id;
 
                 const { error } = await supabase.auth.admin.updateUserById(user_id, {
                     user_metadata: { has_access: true },

@@ -36,6 +36,9 @@ export default function Hero() {
                                 <Link href="/register">
                                     <Button variant="primary">Get Drivers Log</Button>
                                 </Link>
+                                <Button variant="link" disabled={true}>
+                                    Demo (Coming Soon)
+                                </Button>
                             </div>
                         </div>
                         <div className="mt-16 flow-root sm:mt-24">
