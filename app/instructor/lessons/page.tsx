@@ -31,6 +31,7 @@ export default async function Page() {
                 />
             </div>
             <div className="container mx-auto">
+                {/* @ts-ignore */}
                 <LessonForm studentRecords={studentRecords} />
             </div>
             <div className="container mx-auto py-10">

@@ -40,7 +40,7 @@ export default function VerifyOtp({
     const formRef = useRef<HTMLFormElement>(null);
     const { pending } = useFormStatus();
     const router = useRouter();
-
+    // @ts-ignore
     const [state, formAction] = useFormState(verifyOtp, {
         message: "",
         error: "",
@@ -78,6 +78,7 @@ export default function VerifyOtp({
                     onSubmit={(event) => {
                         event.preventDefault();
                         form.handleSubmit(() => {
+                            // @ts-ignore
                             formAction(new FormData(formRef.current!));
                         })(event);
                     }}

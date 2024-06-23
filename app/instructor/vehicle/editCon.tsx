@@ -42,7 +42,7 @@ import { updateVehicleInfoAction } from "@/app/instructor/vehicle/actions";
     onCancel: () => void;
 }; */
 
-export const EditCon = ({ vehicleInfo, open, onCancel }) => {
+export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     const [state, formAction] = useFormState(updateVehicleInfoAction, {

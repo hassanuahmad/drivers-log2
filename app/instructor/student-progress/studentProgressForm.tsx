@@ -160,6 +160,7 @@ export default function StudentProgressForm({
                     <TotalNumbers title="Total Cash" numbers={lessonTotals.total_cash} />
                 </div>
             </div>
+            {/* @ts-ignore */}
             <DataTable columns={columns} data={studentLessons || []} />
         </>
     );
