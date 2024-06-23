@@ -14,7 +14,7 @@ import { CircleUserRoundIcon, ChevronDownIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "@/public/newLogo.svg";
+import logo from "../public/newlogo.svg";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import {

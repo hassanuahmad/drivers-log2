@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import hero from "@/public/hero.png";
+import hero from "../../public/hero.png";
 import HomePageNavbar from "@/components/homepageNavbar";
 
 export default function Hero() {

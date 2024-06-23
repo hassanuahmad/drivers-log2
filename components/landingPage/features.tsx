@@ -1,9 +1,9 @@
 "use client";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-import student from "@/public/student.png";
-import lesson from "@/public/lesson.png";
-import vehicle from "@/public/vehicle.png";
-import progress from "@/public/progress.png";
+import student from "../../public/student.png";
+import lesson from "../../public/lesson.png";
+import vehicle from "../../public/vehicle.png";
+import progress from "../../public/progress.png";
 
 const features = [
     {

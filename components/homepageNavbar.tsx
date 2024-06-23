@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Dialog as DialogHeadless, DialogPanel } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import Image from "next/image";
-import logo from "@/public/newLogo.svg";
+import logo from "../public/newlogo.svg";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
