@@ -1,19 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
-import { createClient } from "@/utils/supabase/server";
 
-//TODO: See how we can improve the middleware
 export async function middleware(request: NextRequest) {
-  const supabase = createClient();
-
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error) {
-    console.error("Error fetching user in middleware: ", error);
-  }
+  let { user, response } = await updateSession(request);
 
   const pathname = request.nextUrl.pathname;
 
@@ -40,7 +29,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return await updateSession(request);
+  response = NextResponse.next();
+  return response;
 }
 
 export const config = {
