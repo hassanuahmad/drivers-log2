@@ -12,8 +12,8 @@ export default function Page() {
             </div>
             <div className="container mx-auto mt-1">
                 <Pricing
-                    heading="Welcome to Drivers Log!"
-                    subheading="Our platform provides the essential tools and features to effectively and efficiently manage your driving school or individual instructing. While our service is paid, we offer an excellent one-time payment plan to ensure you get the best value."
+                    heading="Get Full Access to Drivers Log"
+                    subheading=" Unlock all features with a one-time payment. No subscriptions, no hidden fees - just lifetime access to everything Drivers Log offers."
                     ButtonComponent={AccessPagePricingBtn}
                 />
             </div>
