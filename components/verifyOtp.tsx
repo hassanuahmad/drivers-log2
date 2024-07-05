@@ -45,6 +45,7 @@ export default function VerifyOtp({
         message: "",
         error: "",
         email: email,
+        from: from === "register" ? "register" : "login",
     });
 
     useEffect(() => {
@@ -55,7 +56,7 @@ export default function VerifyOtp({
             const description = message || error || "";
 
             toast[variant](description, {
-                duration: 3000,
+                duration: 2000,
             });
             // if (message) router.push("/instructor/lessons");
             if (message) router.push("/access");

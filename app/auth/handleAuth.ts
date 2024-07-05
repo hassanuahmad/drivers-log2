@@ -54,6 +54,7 @@ type FormStateOtp = {
     message: string;
     error?: string;
     email: string;
+    from: string;
 };
 
 export async function verifyOtp(prevState: FormStateOtp, otpData: FormData) {
@@ -86,7 +87,10 @@ export async function verifyOtp(prevState: FormStateOtp, otpData: FormData) {
             };
         }
 
-        return { message: "Success! Redirecting you to the platform" };
+        if (prevState.from === "register") {
+            return { message: "Success! Redirecting you to access page" };
+        }
+        return { message: "Success! Redirecting you to platform" };
     } catch (error) {
         console.error("Error registering user", error);
         throw error;
