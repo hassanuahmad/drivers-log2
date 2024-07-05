@@ -37,7 +37,7 @@ export default function Hero() {
                                     <Button variant="primary">Get Drivers Log</Button>
                                 </Link>
                                 <Link href="/demo/lessons">
-                                    <Button variant="link">Demo</Button>
+                                    <Button variant="primaryLink">Demo</Button>
                                 </Link>
                             </div>
                         </div>
