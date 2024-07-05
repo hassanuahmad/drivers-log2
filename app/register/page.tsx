@@ -32,6 +32,7 @@ export default function Page() {
 
     const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
+    const [canRequestOtp, setCanRequestOtp] = useState<boolean>(true);
 
     const [state, formAction] = useFormState(handleSignUp, {
         message: "",
@@ -87,9 +88,17 @@ export default function Page() {
                                     action={formAction}
                                     onSubmit={(event) => {
                                         event.preventDefault();
+                                        if (!canRequestOtp) {
+                                            toast.error(
+                                                "Please wait 60 seconds before requesting a new code.",
+                                            );
+                                            return;
+                                        }
                                         form.handleSubmit((data) => {
                                             formAction(new FormData(formRef.current!));
                                             setEmail(data.email);
+                                            setCanRequestOtp(false);
+                                            setTimeout(() => setCanRequestOtp(true), 60000);
                                         })(event);
                                     }}
                                     className="space-y-2"
