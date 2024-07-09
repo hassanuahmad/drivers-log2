@@ -38,7 +38,7 @@ export const columns: ColumnDef<StudentProgressColumnsType>[] = [
                 1,
                 Number(hours),
                 Number(minutes),
-                Number(seconds),
+                Number(seconds)
             );
             return format(date, "hh:mm a");
         },
@@ -55,7 +55,7 @@ export const columns: ColumnDef<StudentProgressColumnsType>[] = [
                 1,
                 Number(hours),
                 Number(minutes),
-                Number(seconds),
+                Number(seconds)
             );
             return format(date, "hh:mm a");
         },

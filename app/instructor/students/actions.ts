@@ -9,7 +9,7 @@ import { FormStateAdd, FormStateUpdateStudent } from "@/types/actions/actions";
 // -----> HELPER FUNCTIONS START <-----
 
 export async function fetchInstructorStudentsHelperFunction(
-    phoneNumber: string,
+    phoneNumber: string
 ) {
     const supabase = createClient();
     const {
@@ -55,7 +55,7 @@ export async function fetchInstructorStudentsHelperFunction(
 
 export async function addStudentAction(
     prevState: FormStateAdd,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;
@@ -82,14 +82,13 @@ export async function addStudentAction(
         const parsedData = parse.data;
 
         let existingStudents = await fetchInstructorStudentsHelperFunction(
-            parsedData.phone_number,
+            parsedData.phone_number
         );
 
         if (existingStudents === null) {
             return {
                 message: "",
-                error:
-                    "An error occured while adding the student, please refresh the page or login again",
+                error: "An error occured while adding the student, please refresh the page or login again",
             };
         }
 
@@ -190,7 +189,7 @@ export async function getStudentByIdAction(studentId: number) {
 
 export async function updateStudentInfoAction(
     prevState: FormStateUpdateStudent,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;
@@ -219,7 +218,7 @@ export async function updateStudentInfoAction(
         const parsedData = parse.data;
 
         let existingStudents = await fetchInstructorStudentsHelperFunction(
-            parsedData.phone_number,
+            parsedData.phone_number
         );
 
         if (

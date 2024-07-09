@@ -13,7 +13,10 @@ export default async function Page() {
                     title="Statistics"
                     description="View your yearly statistics"
                 />
-                <View getYearlyStats={getYearlyStats} yearlyStats={yearlyStats} />
+                <View
+                    getYearlyStats={getYearlyStats}
+                    yearlyStats={yearlyStats}
+                />
             </div>
         </>
     );

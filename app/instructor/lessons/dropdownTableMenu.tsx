@@ -25,9 +25,9 @@ type LessonInfoType = LessonFormValues & {
 };
 
 export const DropdownTableMenu = ({ recordIds }: DropdownTableMenuTypes) => {
-    const [selectedLessonId, setSelectedLessonId] = useState<number | undefined>(
-        undefined,
-    );
+    const [selectedLessonId, setSelectedLessonId] = useState<
+        number | undefined
+    >(undefined);
     const [selectedLessonInfo, setSelectedLessonInfo] = useState<
         LessonInfoType | undefined
     >(undefined);

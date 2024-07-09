@@ -130,22 +130,29 @@ export const columns: ColumnDef<LessonTableColumnsType>[] = [
                     <DropdownMenuContent align="end">
                         <Dialog>
                             <DialogTrigger asChild>
-                                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                <DropdownMenuItem
+                                    onSelect={(e) => e.preventDefault()}
+                                >
                                     Edit
                                 </DropdownMenuItem>
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Feature Restricted in Demo</DialogTitle>
+                                    <DialogTitle>
+                                        Feature Restricted in Demo
+                                    </DialogTitle>
                                     <DialogDescription>
-                                        The edit feature is only available in the full version of
-                                        our product. Purchase the full version to access all
+                                        The edit feature is only available in
+                                        the full version of our product.
+                                        Purchase the full version to access all
                                         features and functionality.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <DialogFooter>
                                     <Link href="/register">
-                                        <Button variant="outline">Create an account</Button>
+                                        <Button variant="outline">
+                                            Create an account
+                                        </Button>
                                     </Link>
                                 </DialogFooter>
                             </DialogContent>
@@ -153,22 +160,29 @@ export const columns: ColumnDef<LessonTableColumnsType>[] = [
 
                         <Dialog>
                             <DialogTrigger asChild>
-                                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                <DropdownMenuItem
+                                    onSelect={(e) => e.preventDefault()}
+                                >
                                     Delete
                                 </DropdownMenuItem>
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Feature Restricted in Demo</DialogTitle>
+                                    <DialogTitle>
+                                        Feature Restricted in Demo
+                                    </DialogTitle>
                                     <DialogDescription>
-                                        The delete feature is only available in the full version of
-                                        our product. Create an account to access all features and
+                                        The delete feature is only available in
+                                        the full version of our product. Create
+                                        an account to access all features and
                                         functionality.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <DialogFooter>
                                     <Link href="/register">
-                                        <Button variant="outline">Create an account</Button>
+                                        <Button variant="outline">
+                                            Create an account
+                                        </Button>
                                     </Link>
                                 </DialogFooter>
                             </DialogContent>

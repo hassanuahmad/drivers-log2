@@ -51,7 +51,7 @@ export const newLessonSchema = z.object({
                 const decimalPart = n.toString().split(".")[1] || "";
                 return decimalPart.length <= 2;
             },
-            { message: "Max 2 decimal places" },
+            { message: "Max 2 decimal places" }
         )
         .transform((n) => parseFloat(n.toFixed(2))),
     road_test: z
@@ -132,7 +132,7 @@ export const newVehicleSchema = z.object({
                 const decimalPart = n.toString().split(".")[1] || "";
                 return decimalPart.length <= 2;
             },
-            { message: "Max 2 decimal places" },
+            { message: "Max 2 decimal places" }
         )
         .transform((n) => parseFloat(n.toFixed(2))),
     maintenance: z.coerce
@@ -143,7 +143,7 @@ export const newVehicleSchema = z.object({
                 const decimalPart = n.toString().split(".")[1] || "";
                 return decimalPart.length <= 2;
             },
-            { message: "Max 2 decimal places" },
+            { message: "Max 2 decimal places" }
         )
         .transform((n) => parseFloat(n.toFixed(2))),
     remarks: z.string().optional(),

@@ -7,7 +7,7 @@ import { FormStateAdd, FormStateUpdateVehicle } from "@/types/actions/actions";
 
 export async function addVehicleAction(
     prevState: FormStateAdd,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;
@@ -38,7 +38,7 @@ export async function addVehicleAction(
         if (error) {
             console.error(
                 "Error inserting vehicle maintenance record (addVehicleAction)",
-                error,
+                error
             );
             return {
                 message: "",
@@ -51,7 +51,7 @@ export async function addVehicleAction(
     } catch (error) {
         console.error(
             "Error adding vehicle maintenance (addVehicleAction): ",
-            error,
+            error
         );
         throw error;
     }
@@ -92,7 +92,7 @@ export async function getVehicleAction(month: string, year: number) {
         if (error) {
             console.error(
                 "Error fetching vehicle maintenance records in getVehicleAction:",
-                error,
+                error
             );
             return null;
         }
@@ -101,7 +101,7 @@ export async function getVehicleAction(month: string, year: number) {
     } catch (error) {
         console.error(
             "Error fetching vehicle maintenance records in getVehicleAction:",
-            error,
+            error
         );
         throw error;
     }
@@ -110,7 +110,7 @@ export async function getVehicleAction(month: string, year: number) {
 export async function getTotalVehicle(
     instructor_id: string,
     month: string,
-    year: number,
+    year: number
 ) {
     const supabase = createClient();
 
@@ -139,20 +139,26 @@ export async function getVehicleByIdAction(recordId: number) {
             .eq("id", recordId);
 
         if (error) {
-            console.error("Error fetching vehicle maintenance record by id:", error);
+            console.error(
+                "Error fetching vehicle maintenance record by id:",
+                error
+            );
             return null;
         }
 
         return vehicle.length ? vehicle[0] : null;
     } catch (error) {
-        console.error("Error fetching vehicle maintenance record by id:", error);
+        console.error(
+            "Error fetching vehicle maintenance record by id:",
+            error
+        );
         return null;
     }
 }
 
 export async function updateVehicleInfoAction(
     prevState: FormStateUpdateVehicle,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;
@@ -225,7 +231,10 @@ export async function deleteVehicleAction(recordId: number): Promise<boolean> {
             .match({ instructor_id: userId, id: recordId });
 
         if (error) {
-            console.error("Error deleting the vehicle maintenance record", error);
+            console.error(
+                "Error deleting the vehicle maintenance record",
+                error
+            );
             return false;
         }
         revalidatePath("/instructor/vehicle");

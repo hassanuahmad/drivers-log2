@@ -100,7 +100,7 @@ export default function InstructorNavbar() {
 
     return (
         <>
-            <Disclosure as="nav" className="bg-white shadow navbar">
+            <Disclosure as="nav" className="navbar bg-white shadow">
                 {({ open }) => (
                     <>
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,19 +110,28 @@ export default function InstructorNavbar() {
                                         <Image
                                             src={logo}
                                             alt="Drivers Log Logo"
-                                            className="w-auto h-48"
+                                            className="h-48 w-auto"
                                         />
                                     </Link>
                                 </div>
-                                <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-2 text-gray-900">
+                                <div className="hidden text-gray-900 sm:ml-6 sm:flex sm:items-center sm:space-x-2">
                                     {navigation.map((item, itemIdx) => (
-                                        <Link key={itemIdx} href={item.href} id={item.name}>
-                                            <Button variant="ghost">{item.name}</Button>
+                                        <Link
+                                            key={itemIdx}
+                                            href={item.href}
+                                            id={item.name}
+                                        >
+                                            <Button variant="ghost">
+                                                {item.name}
+                                            </Button>
                                         </Link>
                                     ))}
-                                    <Menu as="div" className="relative inline-block text-left">
+                                    <Menu
+                                        as="div"
+                                        className="relative inline-block text-left"
+                                    >
                                         <div id="more-button">
-                                            <MenuButton className="inline-flex w-full justify-center px-3 py-2 gap-x-1.5 bg-white text-sm rounded-md font-semibold text-gray-700 shadow-sm hover:bg-gray-50">
+                                            <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50">
                                                 More
                                                 <ChevronDownIcon
                                                     className="-mr-1 h-5 w-5 text-gray-400"
@@ -139,21 +148,35 @@ export default function InstructorNavbar() {
                                             leaveTo="transform opacity-0 scale-95"
                                         >
                                             <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                {dropdownNavigation.map((item, itemIdx) => (
-                                                    <MenuItem key={itemIdx}>
-                                                        {({ focus }) => (
-                                                            <Link
-                                                                href={item.href}
-                                                                className={classNames(
-                                                                    focus ? "bg-gray-100" : "text-gray-900",
-                                                                    "block text-sm",
-                                                                )}
-                                                            >
-                                                                <Button variant={"ghost"}>{item.name}</Button>
-                                                            </Link>
-                                                        )}
-                                                    </MenuItem>
-                                                ))}
+                                                {dropdownNavigation.map(
+                                                    (item, itemIdx) => (
+                                                        <MenuItem key={itemIdx}>
+                                                            {({ focus }) => (
+                                                                <Link
+                                                                    href={
+                                                                        item.href
+                                                                    }
+                                                                    className={classNames(
+                                                                        focus
+                                                                            ? "bg-gray-100"
+                                                                            : "text-gray-900",
+                                                                        "block text-sm"
+                                                                    )}
+                                                                >
+                                                                    <Button
+                                                                        variant={
+                                                                            "ghost"
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </Button>
+                                                                </Link>
+                                                            )}
+                                                        </MenuItem>
+                                                    )
+                                                )}
                                             </MenuItems>
                                         </Transition>
                                     </Menu>
@@ -164,14 +187,18 @@ export default function InstructorNavbar() {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger>
                                                 <span className="absolute -inset-1.5" />
-                                                <span className="sr-only">Open user menu</span>
+                                                <span className="sr-only">
+                                                    Open user menu
+                                                </span>
                                                 <CircleUserRoundIcon className="h-8 w-8" />
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent>
                                                 <DropdownMenuLabel>
                                                     {userInfo.name}
                                                     <br />
-                                                    <span className="font-normal">{userInfo.email}</span>
+                                                    <span className="font-normal">
+                                                        {userInfo.email}
+                                                    </span>
                                                 </DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 {/*
@@ -182,17 +209,25 @@ export default function InstructorNavbar() {
                                                 ))}
                                                 */}
                                                 <DropdownMenuItem>
-                                                    <Link href={contactUsLink} target="_blank">
+                                                    <Link
+                                                        href={contactUsLink}
+                                                        target="_blank"
+                                                    >
                                                         Contact Us
                                                     </Link>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem>
-                                                    <Link href={insightoLink} target="_blank">
+                                                    <Link
+                                                        href={insightoLink}
+                                                        target="_blank"
+                                                    >
                                                         Feature Request
                                                     </Link>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem onClick={signOut}>
+                                                <DropdownMenuItem
+                                                    onClick={signOut}
+                                                >
                                                     Sign Out
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
@@ -201,13 +236,21 @@ export default function InstructorNavbar() {
                                 </div>
                                 <div className="-mr-2 flex items-center sm:hidden">
                                     {/* Mobile menu button */}
-                                    <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-color">
+                                    <DisclosureButton className="focus:ring-primary-color relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset">
                                         <span className="absolute -inset-0.5" />
-                                        <span className="sr-only">Open main menu</span>
+                                        <span className="sr-only">
+                                            Open main menu
+                                        </span>
                                         {open ? (
-                                            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                                            <XMarkIcon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
                                         ) : (
-                                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                                            <Bars3Icon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
                                         )}
                                     </DisclosureButton>
                                 </div>

@@ -79,7 +79,7 @@ export default function AccessNavbar() {
                                         <Image
                                             src={logo}
                                             alt="Drivers Log Logo"
-                                            className="w-auto h-48"
+                                            className="h-48 w-auto"
                                         />
                                     </Link>
                                 </div>
@@ -89,23 +89,32 @@ export default function AccessNavbar() {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger>
                                                 <span className="absolute -inset-1.5" />
-                                                <span className="sr-only">Open user menu</span>
+                                                <span className="sr-only">
+                                                    Open user menu
+                                                </span>
                                                 <CircleUserRoundIcon className="h-8 w-8" />
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent>
                                                 <DropdownMenuLabel>
                                                     {userInfo.name}
                                                     <br />
-                                                    <span className="font-normal">{userInfo.email}</span>
+                                                    <span className="font-normal">
+                                                        {userInfo.email}
+                                                    </span>
                                                 </DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem>
-                                                    <Link href={contactUsLink} target="_blank">
+                                                    <Link
+                                                        href={contactUsLink}
+                                                        target="_blank"
+                                                    >
                                                         Contact Us
                                                     </Link>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem onClick={signOut}>
+                                                <DropdownMenuItem
+                                                    onClick={signOut}
+                                                >
                                                     Sign Out
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
@@ -114,13 +123,21 @@ export default function AccessNavbar() {
                                 </div>
                                 <div className="-mr-2 flex items-center sm:hidden">
                                     {/* Mobile menu button */}
-                                    <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-color">
+                                    <DisclosureButton className="focus:ring-primary-color relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset">
                                         <span className="absolute -inset-0.5" />
-                                        <span className="sr-only">Open main menu</span>
+                                        <span className="sr-only">
+                                            Open main menu
+                                        </span>
                                         {open ? (
-                                            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                                            <XMarkIcon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
                                         ) : (
-                                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                                            <Bars3Icon
+                                                className="block h-6 w-6"
+                                                aria-hidden="true"
+                                            />
                                         )}
                                     </DisclosureButton>
                                 </div>

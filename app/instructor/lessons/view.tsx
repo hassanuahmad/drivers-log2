@@ -26,16 +26,16 @@ export default function View({
         2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
     ];
     const [selectedMonth, setSelectedMonth] = useState<string>(
-        monthOptions[new Date().getMonth()].value,
+        monthOptions[new Date().getMonth()].value
     );
     const [selectedYear, setSelectedYear] = useState<number>(
-        new Date().getFullYear(),
+        new Date().getFullYear()
     );
     const [allLessonRecords, setAllLessonRecords] = useState<
         LessonRecord[] | null
     >(lessonRecords);
     const [totalRecords, setTotalRecords] = useState<LessonTotal | null>(
-        lessonTotal,
+        lessonTotal
     );
 
     // NOTE: There is probably a better way of revalidating this than using it in a useEffect but I have to look into that
@@ -47,11 +47,14 @@ export default function View({
             const userId = user?.id;
             if (!userId) return null;
 
-            let lesson_record = await getLessonAction(selectedMonth, selectedYear);
+            let lesson_record = await getLessonAction(
+                selectedMonth,
+                selectedYear
+            );
             let lesson_total = await getLessonsTotal(
                 userId,
                 selectedMonth,
-                selectedYear,
+                selectedYear
             );
 
             setAllLessonRecords(lesson_record);
@@ -80,32 +83,43 @@ export default function View({
             {/* Dropdowns Start */}
             <div
                 className={
-                    "flex flex-col justify-start space-y-4 md:flex-row md:justify-between md:items-center"
+                    "flex flex-col justify-start space-y-4 md:flex-row md:items-center md:justify-between"
                 }
             >
                 <div className={"flex"}>
                     <Select onValueChange={(value) => setSelectedMonth(value)}>
                         <SelectTrigger className="w-[140px]">
                             {monthOptions.find(
-                                (monthOption) => monthOption.value === selectedMonth,
+                                (monthOption) =>
+                                    monthOption.value === selectedMonth
                             )?.label || "Month"}
                         </SelectTrigger>
                         <SelectContent>
                             {monthOptions.map((monthOption, index) => (
-                                <SelectItem key={index} value={monthOption.value}>
+                                <SelectItem
+                                    key={index}
+                                    value={monthOption.value}
+                                >
                                     {monthOption.label}
                                 </SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
                     <div className={"ml-4"}>
-                        <Select onValueChange={(value) => setSelectedYear(Number(value))}>
+                        <Select
+                            onValueChange={(value) =>
+                                setSelectedYear(Number(value))
+                            }
+                        >
                             <SelectTrigger className="w-[140px]">
                                 {selectedYear || "Year"}
                             </SelectTrigger>
                             <SelectContent>
                                 {years.map((yearOption, index) => (
-                                    <SelectItem key={index} value={yearOption.toString()}>
+                                    <SelectItem
+                                        key={index}
+                                        value={yearOption.toString()}
+                                    >
                                         {yearOption}
                                     </SelectItem>
                                 ))}

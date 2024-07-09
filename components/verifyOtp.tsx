@@ -106,7 +106,8 @@ export default function VerifyOtp({
                                     </InputOTP>
                                 </FormControl>
                                 <FormDescription>
-                                    Please enter the code sent to <strong>{email}</strong>.
+                                    Please enter the code sent to{" "}
+                                    <strong>{email}</strong>.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -127,7 +128,7 @@ export default function VerifyOtp({
                     <Link
                         href="/register"
                         onClick={handleVerifyText}
-                        className="font-semibold leading-6 text-primary-color hover:text-primary-color-600"
+                        className="text-primary-color font-semibold leading-6 hover:text-primary-color-600"
                     >
                         Verify with another email address
                     </Link>
@@ -137,7 +138,7 @@ export default function VerifyOtp({
                     <Link
                         href="/login"
                         onClick={handleVerifyText}
-                        className="font-semibold leading-6 text-primary-color hover:text-primary-color-600"
+                        className="text-primary-color font-semibold leading-6 hover:text-primary-color-600"
                     >
                         Login again
                     </Link>

@@ -12,7 +12,7 @@ export default function View() {
         <>
             <div className="py-10">
                 <div className="items-center">
-                    <div className="flex justify-end items-center gap-4">
+                    <div className="flex items-center justify-end gap-4">
                         <TotalNumbers
                             title={"Gas"}
                             numbers={totalVehicles.gas_total || 0}

@@ -52,7 +52,7 @@ export default function LessonForm() {
 
     const today = new Date();
     const formattedToday = `${today.getFullYear()}-${String(
-        today.getMonth() + 1,
+        today.getMonth() + 1
     ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
     const [isSelectedStudentOpen, setIsSelectedStudentOpen] =
@@ -98,7 +98,10 @@ export default function LessonForm() {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                >
                     <div
                         id="lesson-form"
                         className={
@@ -125,53 +128,86 @@ export default function LessonForm() {
                                                     role="combobox"
                                                     className={cn(
                                                         "justify-between",
-                                                        !field.value && "text-muted-foreground",
+                                                        !field.value &&
+                                                            "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value
-                                                        ? `${studentRecords.find(
-                                                            (studentRecord) =>
-                                                                studentRecord.id === Number(field.value),
-                                                        )?.first_name
-                                                        } ${studentRecords.find(
-                                                            (studentRecord) =>
-                                                                studentRecord.id === Number(field.value),
-                                                        )?.last_name
-                                                        }`
+                                                        ? `${
+                                                              studentRecords.find(
+                                                                  (
+                                                                      studentRecord
+                                                                  ) =>
+                                                                      studentRecord.id ===
+                                                                      Number(
+                                                                          field.value
+                                                                      )
+                                                              )?.first_name
+                                                          } ${
+                                                              studentRecords.find(
+                                                                  (
+                                                                      studentRecord
+                                                                  ) =>
+                                                                      studentRecord.id ===
+                                                                      Number(
+                                                                          field.value
+                                                                      )
+                                                              )?.last_name
+                                                          }`
                                                         : "Select Student"}
                                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-72 sm:w-auto p-0">
+                                        <PopoverContent className="w-72 p-0 sm:w-auto">
                                             <Command>
                                                 <CommandInput placeholder="Search student..." />
-                                                <CommandEmpty>No student found.</CommandEmpty>
+                                                <CommandEmpty>
+                                                    No student found.
+                                                </CommandEmpty>
                                                 <CommandGroup>
                                                     <CommandList>
-                                                        {studentRecords.map((student) => (
-                                                            <CommandItem
-                                                                value={student.first_name}
-                                                                key={student.id}
-                                                                onSelect={() => {
-                                                                    form.setValue(
-                                                                        "selected_student",
-                                                                        String(student.id),
-                                                                    );
-                                                                    setIsSelectedStudentOpen(false);
-                                                                }}
-                                                            >
-                                                                <Check
-                                                                    className={cn(
-                                                                        "mr-2 h-4 w-4",
-                                                                        student.id === Number(field.value)
-                                                                            ? "opacity-100"
-                                                                            : "opacity-0",
-                                                                    )}
-                                                                />
-                                                                {student.first_name} {student.last_name}
-                                                            </CommandItem>
-                                                        ))}
+                                                        {studentRecords.map(
+                                                            (student) => (
+                                                                <CommandItem
+                                                                    value={
+                                                                        student.first_name
+                                                                    }
+                                                                    key={
+                                                                        student.id
+                                                                    }
+                                                                    onSelect={() => {
+                                                                        form.setValue(
+                                                                            "selected_student",
+                                                                            String(
+                                                                                student.id
+                                                                            )
+                                                                        );
+                                                                        setIsSelectedStudentOpen(
+                                                                            false
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <Check
+                                                                        className={cn(
+                                                                            "mr-2 h-4 w-4",
+                                                                            student.id ===
+                                                                                Number(
+                                                                                    field.value
+                                                                                )
+                                                                                ? "opacity-100"
+                                                                                : "opacity-0"
+                                                                        )}
+                                                                    />
+                                                                    {
+                                                                        student.first_name
+                                                                    }{" "}
+                                                                    {
+                                                                        student.last_name
+                                                                    }
+                                                                </CommandItem>
+                                                            )
+                                                        )}
                                                     </CommandList>
                                                 </CommandGroup>
                                             </Command>
@@ -194,11 +230,17 @@ export default function LessonForm() {
                                                     variant={"outline"}
                                                     className={cn(
                                                         "pl-3 text-left font-normal",
-                                                        !field.value && "text-muted-foreground",
+                                                        !field.value &&
+                                                            "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
-                                                        format(parseISO(field.value), "PPP")
+                                                        format(
+                                                            parseISO(
+                                                                field.value
+                                                            ),
+                                                            "PPP"
+                                                        )
                                                     ) : (
                                                         <span>Pick a date</span>
                                                     )}
@@ -206,23 +248,33 @@ export default function LessonForm() {
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0" align="start">
+                                        <PopoverContent
+                                            className="w-auto p-0"
+                                            align="start"
+                                        >
                                             <Calendar
                                                 mode="single"
                                                 selected={
-                                                    field.value ? parseISO(field.value) : undefined
+                                                    field.value
+                                                        ? parseISO(field.value)
+                                                        : undefined
                                                 }
                                                 onSelect={(selectedDate) => {
                                                     if (selectedDate) {
-                                                        const formattedDate = format(
-                                                            selectedDate,
-                                                            "yyyy-MM-dd",
+                                                        const formattedDate =
+                                                            format(
+                                                                selectedDate,
+                                                                "yyyy-MM-dd"
+                                                            );
+                                                        field.onChange(
+                                                            formattedDate
                                                         );
-                                                        field.onChange(formattedDate);
                                                     }
                                                 }}
                                                 disabled={(date) =>
-                                                    date > new Date() || date < new Date("1900-01-01")
+                                                    date > new Date() ||
+                                                    date <
+                                                        new Date("1900-01-01")
                                                 }
                                                 initialFocus
                                             />
@@ -264,15 +316,22 @@ export default function LessonForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Payment Type</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
                                         <FormControl>
                                             <SelectTrigger>
                                                 <SelectValue />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="Interac">Interac</SelectItem>
-                                            <SelectItem value="Cash">Cash</SelectItem>
+                                            <SelectItem value="Interac">
+                                                Interac
+                                            </SelectItem>
+                                            <SelectItem value="Cash">
+                                                Cash
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
@@ -298,16 +357,25 @@ export default function LessonForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Road Test</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
                                         <FormControl>
                                             <SelectTrigger>
                                                 <SelectValue />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="No">No</SelectItem>
-                                            <SelectItem value="Pass">Pass</SelectItem>
-                                            <SelectItem value="Fail">Fail</SelectItem>
+                                            <SelectItem value="No">
+                                                No
+                                            </SelectItem>
+                                            <SelectItem value="Pass">
+                                                Pass
+                                            </SelectItem>
+                                            <SelectItem value="Fail">
+                                                Fail
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
@@ -329,7 +397,11 @@ export default function LessonForm() {
                                 )}
                             />
                         </div>
-                        <Button variant="primary" type="submit" disabled={pending}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={pending}
+                        >
                             Save Lesson
                         </Button>
                     </div>

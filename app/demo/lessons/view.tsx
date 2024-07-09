@@ -12,7 +12,7 @@ export default function View() {
     return (
         <>
             <div id="monthly-stats" className="items-center pt-4">
-                <div className="flex justify-end items-center gap-4">
+                <div className="flex items-center justify-end gap-4">
                     <div className="h-10 px-4 py-2 text-sm text-gray-500">
                         <span className="text-sm font-bold text-gray-500">
                             Total Hours:{" "}

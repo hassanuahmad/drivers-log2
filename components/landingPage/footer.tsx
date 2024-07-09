@@ -13,15 +13,20 @@ export default function Footer() {
     return (
         <>
             <footer className="bg-gray-100">
-                <div className="mx-auto container px-4 py-16 sm:px-6 lg:px-8">
+                <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
                     <div className="flex justify-center text-teal-600">
-                        <Image src={logo} alt="Drivers Log Logo" className="w-auto h-16" />
+                        <Image
+                            src={logo}
+                            alt="Drivers Log Logo"
+                            className="h-16 w-auto"
+                        />
                     </div>
 
                     <p className="mx-auto mt-6 max-w-lg text-center leading-relaxed text-gray-500">
-                        Transforming the way driving schools and instructors manage their
-                        business. Simplify scheduling, track student progress, and maintain
-                        vehicles effortlessly with Drivers Log.
+                        Transforming the way driving schools and instructors
+                        manage their business. Simplify scheduling, track
+                        student progress, and maintain vehicles effortlessly
+                        with Drivers Log.
                     </p>
 
                     <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">

@@ -14,7 +14,11 @@ export async function POST(req: NextRequest) {
     let event: Stripe.Event;
 
     try {
-        event = stripe.webhooks.constructEvent(body, signature!, webhookSecret!);
+        event = stripe.webhooks.constructEvent(
+            body,
+            signature!,
+            webhookSecret!
+        );
     } catch (err: any) {
         console.error(`Webhook signature verification failed. ${err.message}`);
         return NextResponse.json({ error: err.message }, { status: 400 });
@@ -40,7 +44,10 @@ export async function POST(req: NextRequest) {
                     .limit(1);
 
                 if (user_id_error) {
-                    console.error("Error getting id using email", user_id_error);
+                    console.error(
+                        "Error getting id using email",
+                        user_id_error
+                    );
                     throw user_id_error;
                 }
 
@@ -50,9 +57,12 @@ export async function POST(req: NextRequest) {
 
                 const user_id = user[0].instructor_id;
 
-                const { error } = await supabase.auth.admin.updateUserById(user_id, {
-                    user_metadata: { has_access: true },
-                });
+                const { error } = await supabase.auth.admin.updateUserById(
+                    user_id,
+                    {
+                        user_metadata: { has_access: true },
+                    }
+                );
 
                 if (error) {
                     console.error("Supabase updating user error:", error);
@@ -69,7 +79,7 @@ export async function POST(req: NextRequest) {
         }
     } catch (err: any) {
         console.error(
-            `Stripe error: ` + err.message + " | Event Type: " + eventType,
+            `Stripe error: ` + err.message + " | Event Type: " + eventType
         );
     }
 

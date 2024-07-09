@@ -28,9 +28,8 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        [],
-    );
+    const [columnFilters, setColumnFilters] =
+        React.useState<ColumnFiltersState>([]);
 
     const table = useReactTable({
         data,
@@ -49,10 +48,14 @@ export function DataTable<TData, TValue>({
                 <Input
                     placeholder="Search by first name..."
                     value={
-                        (table.getColumn("first_name")?.getFilterValue() as string) ?? ""
+                        (table
+                            .getColumn("first_name")
+                            ?.getFilterValue() as string) ?? ""
                     }
                     onChange={(event) =>
-                        table.getColumn("first_name")?.setFilterValue(event.target.value)
+                        table
+                            .getColumn("first_name")
+                            ?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
@@ -68,9 +71,10 @@ export function DataTable<TData, TValue>({
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext(),
-                                                )}
+                                                      header.column.columnDef
+                                                          .header,
+                                                      header.getContext()
+                                                  )}
                                         </TableHead>
                                     );
                                 })}
@@ -82,13 +86,15 @@ export function DataTable<TData, TValue>({
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
+                                    data-state={
+                                        row.getIsSelected() && "selected"
+                                    }
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
-                                                cell.getContext(),
+                                                cell.getContext()
                                             )}
                                         </TableCell>
                                     ))}

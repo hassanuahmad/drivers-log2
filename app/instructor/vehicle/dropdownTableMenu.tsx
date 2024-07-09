@@ -47,7 +47,7 @@ export const DropdownTableMenu = ({ recordIds }: DropdownTableMenuTypes) => {
         } catch (error) {
             console.error(
                 "Error fetching vehicle maintenance information in FE:",
-                error,
+                error
             );
             toast.error("An unexpected error occurred", {
                 duration: 2000,

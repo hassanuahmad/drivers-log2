@@ -9,7 +9,10 @@ export async function POST(req: NextRequest) {
         const { email } = await req.json();
 
         if (!email) {
-            return NextResponse.json({ error: "Email is required" }, { status: 400 });
+            return NextResponse.json(
+                { error: "Email is required" },
+                { status: 400 }
+            );
         }
 
         const session = await stripe.checkout.sessions.create({
@@ -35,7 +38,7 @@ export async function POST(req: NextRequest) {
         console.error("Error creating checkout session:", err);
         return NextResponse.json(
             { error: "Error creating checkout session" },
-            { status: 500 },
+            { status: 500 }
         );
     }
 }

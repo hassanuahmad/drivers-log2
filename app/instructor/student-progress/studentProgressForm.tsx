@@ -86,7 +86,7 @@ export default function StudentProgressForm({ studentRecords }: any) {
         if (error) {
             console.error(
                 "Error fetching student lessons in getStudentLessons: ",
-                error,
+                error
             );
             return;
         }
@@ -104,7 +104,7 @@ export default function StudentProgressForm({ studentRecords }: any) {
                 }
                 return acc;
             },
-            { totalDuration: 0, totalInterac: 0, totalCash: 0 },
+            { totalDuration: 0, totalInterac: 0, totalCash: 0 }
         );
 
         setLessonTotals({
@@ -116,7 +116,7 @@ export default function StudentProgressForm({ studentRecords }: any) {
 
     return (
         <>
-            <div className="flex flex-col sm:flex-row justify-between py-4">
+            <div className="flex flex-col justify-between py-4 sm:flex-row">
                 <Popover
                     open={isSelectedStudentOpen}
                     onOpenChange={setIsSelectedStudentOpen}
@@ -155,12 +155,15 @@ export default function StudentProgressForm({ studentRecords }: any) {
                                             <Check
                                                 className={cn(
                                                     "mr-2 h-4 w-4",
-                                                    selectedStudent?.students?.id === record.students?.id
+                                                    selectedStudent?.students
+                                                        ?.id ===
+                                                        record.students?.id
                                                         ? "opacity-100"
-                                                        : "opacity-0",
+                                                        : "opacity-0"
                                                 )}
                                             />
-                                            {record.students.first_name} {record.students.last_name}
+                                            {record.students.first_name}{" "}
+                                            {record.students.last_name}
                                         </CommandItem>
                                     ))}
                                 </CommandList>
@@ -179,7 +182,10 @@ export default function StudentProgressForm({ studentRecords }: any) {
                         title="Total Interac"
                         numbers={lessonTotals.total_interac}
                     />
-                    <TotalNumbers title="Total Cash" numbers={lessonTotals.total_cash} />
+                    <TotalNumbers
+                        title="Total Cash"
+                        numbers={lessonTotals.total_cash}
+                    />
                 </div>
             </div>
             {/* @ts-ignore */}
@@ -219,7 +225,8 @@ export default function StudentProgressForm({ studentRecords }: any) {
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>
-                                    BDE Report Export: Contact support to activate this feature.
+                                    BDE Report Export: Contact support to
+                                    activate this feature.
                                 </p>
                             </TooltipContent>
                         </Tooltip>

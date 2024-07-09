@@ -120,7 +120,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                 onSubmit={(event) => {
                                     event.preventDefault();
                                     form.handleSubmit(() => {
-                                        formAction(new FormData(formRef.current!));
+                                        formAction(
+                                            new FormData(formRef.current!)
+                                        );
                                     })(event);
                                 }}
                                 className="space-y-8"
@@ -131,7 +133,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                         name="first_name"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>First Name</FormLabel>
+                                                <FormLabel>
+                                                    First Name
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input {...field} />
                                                 </FormControl>
@@ -157,7 +161,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                         name="phone_number"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Phone Number</FormLabel>
+                                                <FormLabel>
+                                                    Phone Number
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input {...field} />
                                                 </FormControl>
@@ -183,11 +189,15 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                         name="driving_class"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Driving Class</FormLabel>
+                                                <FormLabel>
+                                                    Driving Class
+                                                </FormLabel>
                                                 <Select
                                                     onValueChange={(value) => {
                                                         field.onChange(value);
-                                                        setHiddenDrivingClassValue(value);
+                                                        setHiddenDrivingClassValue(
+                                                            value
+                                                        );
                                                     }}
                                                     value={field.value}
                                                 >
@@ -197,14 +207,20 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="G2">G2</SelectItem>
-                                                        <SelectItem value="G">G</SelectItem>
+                                                        <SelectItem value="G2">
+                                                            G2
+                                                        </SelectItem>
+                                                        <SelectItem value="G">
+                                                            G
+                                                        </SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <input
                                                     type="hidden"
                                                     name="driving_class"
-                                                    value={hiddenDrivingClassValue}
+                                                    value={
+                                                        hiddenDrivingClassValue
+                                                    }
                                                 />
                                                 <FormMessage />
                                             </FormItem>
@@ -219,7 +235,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                                 <Select
                                                     onValueChange={(value) => {
                                                         field.onChange(value);
-                                                        setHiddenBdeValue(value);
+                                                        setHiddenBdeValue(
+                                                            value
+                                                        );
                                                     }}
                                                     value={field.value}
                                                 >
@@ -229,8 +247,12 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="No">No</SelectItem>
-                                                        <SelectItem value="Yes">Yes</SelectItem>
+                                                        <SelectItem value="No">
+                                                            No
+                                                        </SelectItem>
+                                                        <SelectItem value="Yes">
+                                                            Yes
+                                                        </SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <input
@@ -247,7 +269,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                         name="street_address"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Street Address</FormLabel>
+                                                <FormLabel>
+                                                    Street Address
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input {...field} />
                                                     {/*
@@ -265,7 +289,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                         name="postal_code"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Postal Code</FormLabel>
+                                                <FormLabel>
+                                                    Postal Code
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input {...field} />
                                                 </FormControl>
@@ -327,7 +353,11 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
                                     />
                                 </div>
                                 <DialogFooter>
-                                    <Button variant="primary" type="submit" disabled={pending}>
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        disabled={pending}
+                                    >
                                         Save changes
                                     </Button>
                                 </DialogFooter>

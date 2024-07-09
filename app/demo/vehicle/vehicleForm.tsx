@@ -36,7 +36,7 @@ export default function VehicleForm() {
 
     const today = new Date();
     const formattedToday = `${today.getFullYear()}-${String(
-        today.getMonth() + 1,
+        today.getMonth() + 1
     ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
     const initialVehicleFormValues: VehicleFormValues = {
@@ -70,7 +70,10 @@ export default function VehicleForm() {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                >
                     <div
                         className={
                             "my-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6"
@@ -89,11 +92,17 @@ export default function VehicleForm() {
                                                     variant={"outline"}
                                                     className={cn(
                                                         "pl-3 text-left font-normal",
-                                                        !field.value && "text-muted-foreground",
+                                                        !field.value &&
+                                                            "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
-                                                        format(parseISO(field.value), "PPP")
+                                                        format(
+                                                            parseISO(
+                                                                field.value
+                                                            ),
+                                                            "PPP"
+                                                        )
                                                     ) : (
                                                         <span>Pick a date</span>
                                                     )}
@@ -101,23 +110,33 @@ export default function VehicleForm() {
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0" align="start">
+                                        <PopoverContent
+                                            className="w-auto p-0"
+                                            align="start"
+                                        >
                                             <Calendar
                                                 mode="single"
                                                 selected={
-                                                    field.value ? parseISO(field.value) : undefined
+                                                    field.value
+                                                        ? parseISO(field.value)
+                                                        : undefined
                                                 }
                                                 onSelect={(selectedDate) => {
                                                     if (selectedDate) {
-                                                        const formattedDate = format(
-                                                            selectedDate,
-                                                            "yyyy-MM-dd",
+                                                        const formattedDate =
+                                                            format(
+                                                                selectedDate,
+                                                                "yyyy-MM-dd"
+                                                            );
+                                                        field.onChange(
+                                                            formattedDate
                                                         );
-                                                        field.onChange(formattedDate);
                                                     }
                                                 }}
                                                 disabled={(date) =>
-                                                    date > new Date() || date < new Date("1900-01-01")
+                                                    date > new Date() ||
+                                                    date <
+                                                        new Date("1900-01-01")
                                                 }
                                                 initialFocus
                                             />
@@ -181,7 +200,11 @@ export default function VehicleForm() {
                                 )}
                             />
                         </div>
-                        <Button variant="primary" type="submit" disabled={pending}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={pending}
+                        >
                             Save Maintenance
                         </Button>
                     </div>

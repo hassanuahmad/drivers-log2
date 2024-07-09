@@ -25,16 +25,19 @@ export default function Hero() {
                         {/* this used to be max-w-2xl */}
                         <div className="mx-auto max-w-4xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Effortless Lesson Management for Driving Instructors
+                                Effortless Lesson Management for Driving
+                                Instructors
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                Optimize Your Teaching with a Platform Designed for Efficient
-                                Lesson and Student Tracking, Student Progress, Vehicle Upkeep,
-                                and More
+                                Optimize Your Teaching with a Platform Designed
+                                for Efficient Lesson and Student Tracking,
+                                Student Progress, Vehicle Upkeep, and More
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link href="/register">
-                                    <Button variant="primary">Get Drivers Log</Button>
+                                    <Button variant="primary">
+                                        Get Drivers Log
+                                    </Button>
                                 </Link>
                                 <Link href="/demo/lessons">
                                     <Button variant="primaryLink">Demo</Button>

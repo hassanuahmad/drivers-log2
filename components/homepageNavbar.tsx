@@ -29,7 +29,7 @@ export default function HomePageNavbar() {
 
     const handleScroll = (
         e: React.MouseEvent<HTMLAnchorElement>,
-        href: string,
+        href: string
     ) => {
         e.preventDefault();
         const targetId = href.replace("#", "");
@@ -39,8 +39,8 @@ export default function HomePageNavbar() {
 
     return (
         <>
-            <header className="inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10 absolute">
-                <div className="mx-auto flex w-full container items-center justify-between px-4 sm:px-6 lg:px-8">
+            <header className="absolute inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
+                <div className="container mx-auto flex w-full items-center justify-between px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-1 items-center gap-x-6">
                         <button
                             type="button"
@@ -48,10 +48,17 @@ export default function HomePageNavbar() {
                             onClick={() => setMobileMenuOpen(true)}
                         >
                             <span className="sr-only">Open main menu</span>
-                            <Bars3Icon className="h-5 w-5 text-gray-900" aria-hidden="true" />
+                            <Bars3Icon
+                                className="h-5 w-5 text-gray-900"
+                                aria-hidden="true"
+                            />
                         </button>
                         <Link href="/">
-                            <Image src={logo} alt="logo" className="w-auto h-48" />
+                            <Image
+                                src={logo}
+                                alt="logo"
+                                className="h-48 w-auto"
+                            />
                         </Link>
                     </div>
                     <nav className="hidden md:flex md:gap-x-2 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
@@ -61,7 +68,9 @@ export default function HomePageNavbar() {
                                 href={item.href}
                                 onClick={(e) => handleScroll(e, item.href)}
                             >
-                                <Button variant="primaryLink">{item.name}</Button>
+                                <Button variant="primaryLink">
+                                    {item.name}
+                                </Button>
                             </Link>
                         ))}
                         <Link href={contactUsLink} target="_blank">
@@ -92,7 +101,10 @@ export default function HomePageNavbar() {
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 <span className="sr-only">Close menu</span>
-                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                                <XMarkIcon
+                                    className="h-6 w-6"
+                                    aria-hidden="true"
+                                />
                             </button>
                             <Link href="/" className="-ml-0.5">
                                 <Image src={logo} alt="logo" width={200} />

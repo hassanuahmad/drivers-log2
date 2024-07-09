@@ -72,9 +72,13 @@ export default function Page() {
 
     return (
         <>
-            <div className="flex h-screen flex-1 flex-col justify-center content-center px-6 py-12 lg:px-8">
+            <div className="flex h-screen flex-1 flex-col content-center justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <Image src={logo} alt="logo" className="mx-auto w-auto h-16" />
+                    <Image
+                        src={logo}
+                        alt="logo"
+                        className="mx-auto h-16 w-auto"
+                    />
                     <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Let's get you started with Drivers Log
                     </h2>
@@ -90,15 +94,20 @@ export default function Page() {
                                         event.preventDefault();
                                         if (!canRequestOtp) {
                                             toast.error(
-                                                "Please wait 60 seconds before requesting a new code.",
+                                                "Please wait 60 seconds before requesting a new code."
                                             );
                                             return;
                                         }
                                         form.handleSubmit((data) => {
-                                            formAction(new FormData(formRef.current!));
+                                            formAction(
+                                                new FormData(formRef.current!)
+                                            );
                                             setEmail(data.email);
                                             setCanRequestOtp(false);
-                                            setTimeout(() => setCanRequestOtp(true), 60000);
+                                            setTimeout(
+                                                () => setCanRequestOtp(true),
+                                                60000
+                                            );
                                         })(event);
                                     }}
                                     className="space-y-2"
@@ -108,9 +117,14 @@ export default function Page() {
                                         name="first_name"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>First Name</FormLabel>
+                                                <FormLabel>
+                                                    First Name
+                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="First Name" {...field} />
+                                                    <Input
+                                                        placeholder="First Name"
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -123,7 +137,10 @@ export default function Page() {
                                             <FormItem>
                                                 <FormLabel>Last Name</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Last Name" {...field} />
+                                                    <Input
+                                                        placeholder="Last Name"
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -134,9 +151,14 @@ export default function Page() {
                                         name="email"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Email Address</FormLabel>
+                                                <FormLabel>
+                                                    Email Address
+                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Email address" {...field} />
+                                                    <Input
+                                                        placeholder="Email address"
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>

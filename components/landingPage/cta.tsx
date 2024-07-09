@@ -12,8 +12,9 @@ export default function Cta() {
                         Start Using Drivers Log Today.
                     </h2>
                     <p className="mt-6 text-lg leading-8 text-gray-700">
-                        Streamline scheduling, track progress, and manage vehicles
-                        effortlessly. Ideal for driving schools and independent instructors.
+                        Streamline scheduling, track progress, and manage
+                        vehicles effortlessly. Ideal for driving schools and
+                        independent instructors.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Link href="/register">

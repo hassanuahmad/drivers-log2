@@ -9,20 +9,23 @@ import { StudentFormValues } from "@/types/shared/forms";
 type PizZipUtilsType = {
     getBinaryContent: (
         url: string,
-        callback: (error: Error | null, data: string | Uint8Array | null) => void,
+        callback: (
+            error: Error | null,
+            data: string | Uint8Array | null
+        ) => void
     ) => void;
 };
 
 let PizZipUtils: PizZipUtilsType | null = null;
 if (typeof window !== "undefined") {
-    import("pizzip/utils/index.js").then(function(r) {
+    import("pizzip/utils/index.js").then(function (r) {
         PizZipUtils = r as unknown as PizZipUtilsType;
     });
 }
 
 function loadFile(
     url: string,
-    callback: (error: Error | null, content: string | Uint8Array | null) => void,
+    callback: (error: Error | null, content: string | Uint8Array | null) => void
 ): void {
     if (PizZipUtils) {
         PizZipUtils.getBinaryContent(url, callback);
@@ -64,7 +67,7 @@ export const generateBdeReport = async (records: RecordType[]) => {
         .from("bde-templates")
         .getPublicUrl("east-star-bde-report.docx");
 
-    loadFile(data.publicUrl, function(error, content) {
+    loadFile(data.publicUrl, function (error, content) {
         if (error) {
             console.error("Error loading file:", error);
             throw error;
@@ -157,7 +160,7 @@ export const generateBdeReport = async (records: RecordType[]) => {
 
         saveAs(
             out,
-            `${records[0].students.first_name} ${records[0].students.last_name} BDE Report.docx`,
+            `${records[0].students.first_name} ${records[0].students.last_name} BDE Report.docx`
         );
     });
 };

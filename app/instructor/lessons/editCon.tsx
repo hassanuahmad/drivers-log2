@@ -128,7 +128,9 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                 onSubmit={(event) => {
                                     event.preventDefault();
                                     form.handleSubmit(() => {
-                                        formAction(new FormData(formRef.current!));
+                                        formAction(
+                                            new FormData(formRef.current!)
+                                        );
                                     })(event);
                                 }}
                                 className="space-y-8"
@@ -150,40 +152,71 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                                     <PopoverTrigger asChild>
                                                         <FormControl>
                                                             <Button
-                                                                variant={"outline"}
+                                                                variant={
+                                                                    "outline"
+                                                                }
                                                                 className={cn(
                                                                     "pl-3 text-left font-normal",
-                                                                    !field.value && "text-muted-foreground",
+                                                                    !field.value &&
+                                                                        "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(parseISO(field.value), "PPP")
+                                                                    format(
+                                                                        parseISO(
+                                                                            field.value
+                                                                        ),
+                                                                        "PPP"
+                                                                    )
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>
+                                                                        Pick a
+                                                                        date
+                                                                    </span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent
+                                                        className="w-auto p-0"
+                                                        align="start"
+                                                    >
                                                         <Calendar
                                                             mode="single"
                                                             selected={
-                                                                field.value ? parseISO(field.value) : undefined
+                                                                field.value
+                                                                    ? parseISO(
+                                                                          field.value
+                                                                      )
+                                                                    : undefined
                                                             }
-                                                            onSelect={(selectedDate) => {
-                                                                if (selectedDate) {
-                                                                    const formattedDate = format(
-                                                                        selectedDate,
-                                                                        "yyyy-MM-dd",
+                                                            onSelect={(
+                                                                selectedDate
+                                                            ) => {
+                                                                if (
+                                                                    selectedDate
+                                                                ) {
+                                                                    const formattedDate =
+                                                                        format(
+                                                                            selectedDate,
+                                                                            "yyyy-MM-dd"
+                                                                        );
+                                                                    field.onChange(
+                                                                        formattedDate
                                                                     );
-                                                                    field.onChange(formattedDate);
-                                                                    setHiddenDateValue(formattedDate);
+                                                                    setHiddenDateValue(
+                                                                        formattedDate
+                                                                    );
                                                                 }
                                                             }}
                                                             disabled={(date) =>
-                                                                date > new Date() ||
-                                                                date < new Date("1900-01-01")
+                                                                date >
+                                                                    new Date() ||
+                                                                date <
+                                                                    new Date(
+                                                                        "1900-01-01"
+                                                                    )
                                                             }
                                                             initialFocus
                                                         />
@@ -203,9 +236,14 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                         name="start_time"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Start Time</FormLabel>
+                                                <FormLabel>
+                                                    Start Time
+                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input type={"time"} {...field} />
+                                                    <Input
+                                                        type={"time"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -218,7 +256,10 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                             <FormItem>
                                                 <FormLabel>End Time</FormLabel>
                                                 <FormControl>
-                                                    <Input type={"time"} {...field} />
+                                                    <Input
+                                                        type={"time"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -229,11 +270,15 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                         name="payment_type"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Payment Type</FormLabel>
+                                                <FormLabel>
+                                                    Payment Type
+                                                </FormLabel>
                                                 <Select
                                                     onValueChange={(value) => {
                                                         field.onChange(value);
-                                                        setHiddenPaymentTypeValue(value);
+                                                        setHiddenPaymentTypeValue(
+                                                            value
+                                                        );
                                                     }}
                                                     value={field.value}
                                                 >
@@ -243,14 +288,20 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="Interac">Interac</SelectItem>
-                                                        <SelectItem value="Cash">Cash</SelectItem>
+                                                        <SelectItem value="Interac">
+                                                            Interac
+                                                        </SelectItem>
+                                                        <SelectItem value="Cash">
+                                                            Cash
+                                                        </SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <input
                                                     type="hidden"
                                                     name="payment_type"
-                                                    value={hiddenPaymentTypeValue}
+                                                    value={
+                                                        hiddenPaymentTypeValue
+                                                    }
                                                 />
                                                 <FormMessage />
                                             </FormItem>
@@ -261,9 +312,14 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                         name="payment_amount"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Payment Amount</FormLabel>
+                                                <FormLabel>
+                                                    Payment Amount
+                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input type={"number"} {...field} />
+                                                    <Input
+                                                        type={"number"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -278,7 +334,9 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                                 <Select
                                                     onValueChange={(value) => {
                                                         field.onChange(value);
-                                                        setHiddenRoadTestValue(value);
+                                                        setHiddenRoadTestValue(
+                                                            value
+                                                        );
                                                     }}
                                                     value={field.value}
                                                 >
@@ -288,9 +346,15 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        <SelectItem value="No">No</SelectItem>
-                                                        <SelectItem value="Pass">Pass</SelectItem>
-                                                        <SelectItem value="Fail">Fail</SelectItem>
+                                                        <SelectItem value="No">
+                                                            No
+                                                        </SelectItem>
+                                                        <SelectItem value="Pass">
+                                                            Pass
+                                                        </SelectItem>
+                                                        <SelectItem value="Fail">
+                                                            Fail
+                                                        </SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <input
@@ -308,7 +372,9 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                             name="remarks"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Remarks</FormLabel>
+                                                    <FormLabel>
+                                                        Remarks
+                                                    </FormLabel>
                                                     <FormControl>
                                                         <Input {...field} />
                                                     </FormControl>
@@ -319,7 +385,11 @@ export const EditCon = ({ lessonInfo, open, onCancel }: EditConProps) => {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button variant="primary" type="submit" disabled={pending}>
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        disabled={pending}
+                                    >
                                         Save changes
                                     </Button>
                                 </DialogFooter>

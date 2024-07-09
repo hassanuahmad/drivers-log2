@@ -34,7 +34,8 @@ export default function StudentForm() {
     const formRef = useRef<HTMLFormElement>(null);
     const { pending } = useFormStatus();
 
-    const [hiddenDrivingClassValue, setHiddenDrivingClassValue] = useState("G2");
+    const [hiddenDrivingClassValue, setHiddenDrivingClassValue] =
+        useState("G2");
     const [hiddenBdeValue, setHiddenBdeValue] = useState("No");
 
     // Ref: https://github.com/visgl/react-google-maps/blob/main/examples/autocomplete/src/autocomplete-classic.tsx
@@ -230,7 +231,9 @@ export default function StudentForm() {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="G2">G2</SelectItem>
+                                            <SelectItem value="G2">
+                                                G2
+                                            </SelectItem>
                                             <SelectItem value="G">G</SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -262,11 +265,19 @@ export default function StudentForm() {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="No">No</SelectItem>
-                                            <SelectItem value="Yes">Yes</SelectItem>
+                                            <SelectItem value="No">
+                                                No
+                                            </SelectItem>
+                                            <SelectItem value="Yes">
+                                                Yes
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
-                                    <input type="hidden" name="bde" value={hiddenBdeValue} />
+                                    <input
+                                        type="hidden"
+                                        name="bde"
+                                        value={hiddenBdeValue}
+                                    />
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -284,7 +295,9 @@ export default function StudentForm() {
                                             value={streetAddress}
                                             onChange={(e) => {
                                                 field.onChange(e);
-                                                setStreetAddress(e.target.value);
+                                                setStreetAddress(
+                                                    e.target.value
+                                                );
                                             }}
                                         />
                                     </FormControl>
@@ -362,7 +375,11 @@ export default function StudentForm() {
                                 </FormItem>
                             )}
                         />
-                        <Button variant="primary" type="submit" disabled={pending}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={pending}
+                        >
                             Save Student
                         </Button>
                     </div>

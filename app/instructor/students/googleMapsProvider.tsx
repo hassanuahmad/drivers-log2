@@ -7,7 +7,9 @@ export default function GoogleMapsProvider({
     children: React.ReactNode;
 }) {
     return (
-        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_PLACES_API as string}>
+        <APIProvider
+            apiKey={process.env.NEXT_PUBLIC_GOOGLE_PLACES_API as string}
+        >
             {children}
         </APIProvider>
     );

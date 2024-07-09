@@ -88,7 +88,9 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
             <Dialog open={open} onOpenChange={onCancel}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Edit Vehicle Maintenance Record</DialogTitle>
+                        <DialogTitle>
+                            Edit Vehicle Maintenance Record
+                        </DialogTitle>
                     </DialogHeader>
                     <div>
                         <Form {...form}>
@@ -98,7 +100,9 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                 onSubmit={(event) => {
                                     event.preventDefault();
                                     form.handleSubmit(() => {
-                                        formAction(new FormData(formRef.current!));
+                                        formAction(
+                                            new FormData(formRef.current!)
+                                        );
                                     })(event);
                                 }}
                                 className="space-y-8"
@@ -114,40 +118,71 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                                     <PopoverTrigger asChild>
                                                         <FormControl>
                                                             <Button
-                                                                variant={"outline"}
+                                                                variant={
+                                                                    "outline"
+                                                                }
                                                                 className={cn(
                                                                     "pl-3 text-left font-normal",
-                                                                    !field.value && "text-muted-foreground",
+                                                                    !field.value &&
+                                                                        "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(parseISO(field.value), "PPP")
+                                                                    format(
+                                                                        parseISO(
+                                                                            field.value
+                                                                        ),
+                                                                        "PPP"
+                                                                    )
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>
+                                                                        Pick a
+                                                                        date
+                                                                    </span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent
+                                                        className="w-auto p-0"
+                                                        align="start"
+                                                    >
                                                         <Calendar
                                                             mode="single"
                                                             selected={
-                                                                field.value ? parseISO(field.value) : undefined
+                                                                field.value
+                                                                    ? parseISO(
+                                                                          field.value
+                                                                      )
+                                                                    : undefined
                                                             }
-                                                            onSelect={(selectedDate) => {
-                                                                if (selectedDate) {
-                                                                    const formattedDate = format(
-                                                                        selectedDate,
-                                                                        "yyyy-MM-dd",
+                                                            onSelect={(
+                                                                selectedDate
+                                                            ) => {
+                                                                if (
+                                                                    selectedDate
+                                                                ) {
+                                                                    const formattedDate =
+                                                                        format(
+                                                                            selectedDate,
+                                                                            "yyyy-MM-dd"
+                                                                        );
+                                                                    field.onChange(
+                                                                        formattedDate
                                                                     );
-                                                                    field.onChange(formattedDate);
-                                                                    setHiddenDateValue(formattedDate);
+                                                                    setHiddenDateValue(
+                                                                        formattedDate
+                                                                    );
                                                                 }
                                                             }}
                                                             disabled={(date) =>
-                                                                date > new Date() ||
-                                                                date < new Date("1900-01-01")
+                                                                date >
+                                                                    new Date() ||
+                                                                date <
+                                                                    new Date(
+                                                                        "1900-01-01"
+                                                                    )
                                                             }
                                                             initialFocus
                                                         />
@@ -169,7 +204,10 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                             <FormItem>
                                                 <FormLabel>Odometer</FormLabel>
                                                 <FormControl>
-                                                    <Input type={"number"} {...field} />
+                                                    <Input
+                                                        type={"number"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -182,7 +220,10 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                             <FormItem>
                                                 <FormLabel>Gas</FormLabel>
                                                 <FormControl>
-                                                    <Input type={"number"} {...field} />
+                                                    <Input
+                                                        type={"number"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -193,9 +234,14 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                         name="maintenance"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Maintenance</FormLabel>
+                                                <FormLabel>
+                                                    Maintenance
+                                                </FormLabel>
                                                 <FormControl>
-                                                    <Input type={"number"} {...field} />
+                                                    <Input
+                                                        type={"number"}
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -207,7 +253,9 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                             name="remarks"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Remarks</FormLabel>
+                                                    <FormLabel>
+                                                        Remarks
+                                                    </FormLabel>
                                                     <FormControl>
                                                         <Input {...field} />
                                                     </FormControl>
@@ -218,7 +266,11 @@ export const EditCon = ({ vehicleInfo, open, onCancel }: any) => {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button variant="primary" type="submit" disabled={pending}>
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        disabled={pending}
+                                    >
                                         Save changes
                                     </Button>
                                 </DialogFooter>

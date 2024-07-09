@@ -101,7 +101,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
                     }
                     return acc;
                 },
-                { totalDuration: 0, totalInterac: 0, totalCash: 0 },
+                { totalDuration: 0, totalInterac: 0, totalCash: 0 }
             );
 
             setLessonTotals({
@@ -122,7 +122,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
                     acc.totalMaintenance += vehicle.maintenance;
                     return acc;
                 },
-                { totalGas: 0, totalMaintenance: 0 },
+                { totalGas: 0, totalMaintenance: 0 }
             );
 
             setTotalVehicles({
@@ -140,7 +140,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const addLesson = (lesson: LessonRecordValues) => {
         const studentInfo = students.filter(
-            (student) => student.id === Number(lesson.selected_student),
+            (student) => student.id === Number(lesson.selected_student)
         );
         const lessonInfo = {
             ...lesson,
@@ -171,14 +171,15 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
         setTotalVehicles({
             ...totalVehicles,
             gas_total: totalVehicles.gas_total + vehicle.gas,
-            maintenance_total: totalVehicles.maintenance_total + vehicle.maintenance,
+            maintenance_total:
+                totalVehicles.maintenance_total + vehicle.maintenance,
         });
         sessionStorage.setItem("vehicle", JSON.stringify(updatedVehicle));
     };
 
     const getStudentRecords = (record: { id: number }) => {
         const studentLessons = lessons.filter(
-            (lesson) => lesson.students.id === Number(record.id),
+            (lesson) => lesson.students.id === Number(record.id)
         );
 
         const totals = studentLessons.reduce(
@@ -192,7 +193,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
                 }
                 return acc;
             },
-            { totalDuration: 0, totalInterac: 0, totalCash: 0 },
+            { totalDuration: 0, totalInterac: 0, totalCash: 0 }
         );
 
         setStudentLessonTotals({
@@ -232,12 +233,15 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
             (acc, lesson) => {
                 acc.lessonStats.totalHours += lesson.duration;
                 acc.lessonStats.totalRevenue += lesson.payment_amount;
-                if (lesson.road_test === "Pass") acc.lessonStats.passedStudents += 1;
-                if (lesson.road_test === "Fail") acc.lessonStats.failedStudents += 1;
+                if (lesson.road_test === "Pass")
+                    acc.lessonStats.passedStudents += 1;
+                if (lesson.road_test === "Fail")
+                    acc.lessonStats.failedStudents += 1;
 
                 const lessonDate = new Date(lesson.date);
                 const monthIndex = lessonDate.getMonth();
-                acc.monthlyData[monthIndex].payment_amount += lesson.payment_amount;
+                acc.monthlyData[monthIndex].payment_amount +=
+                    lesson.payment_amount;
                 acc.monthlyData[monthIndex].duration += lesson.duration;
 
                 return acc;
@@ -250,7 +254,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
                     failedStudents: 0,
                 },
                 monthlyData: initMonthlyData(),
-            },
+            }
         );
 
         const vehicleStats = vehicles.reduce(
@@ -259,7 +263,7 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({
                 acc.totalMaintenance += vehicle.maintenance;
                 return acc;
             },
-            { totalGas: 0, totalMaintenance: 0 },
+            { totalGas: 0, totalMaintenance: 0 }
         );
 
         let stats = {

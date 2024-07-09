@@ -11,7 +11,7 @@ export async function supabaseAdmin() {
                 autoRefreshToken: false,
                 persistSession: false,
             },
-        },
+        }
     );
 
     return supabase;

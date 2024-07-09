@@ -8,7 +8,7 @@ import { differenceInMinutes } from "date-fns";
 
 export async function addLessonAction(
     prevState: FormStateAdd,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;
@@ -43,7 +43,10 @@ export async function addLessonAction(
         const { error } = await supabase.from("lessons").insert(parsedData);
 
         if (error) {
-            console.error("Error inserting lesson record (addLessonAction)", error);
+            console.error(
+                "Error inserting lesson record (addLessonAction)",
+                error
+            );
             return {
                 message: "",
                 error: "Error inserting lesson record",
@@ -92,13 +95,19 @@ export async function getLessonAction(month: string, year: number) {
             .order("start_time");
 
         if (error) {
-            console.error("Error fetching lesson records in getLessonAction:", error);
+            console.error(
+                "Error fetching lesson records in getLessonAction:",
+                error
+            );
             return null;
         }
 
         return lessons;
     } catch (error) {
-        console.error("Error fetching lesson records in getLessonAction:", error);
+        console.error(
+            "Error fetching lesson records in getLessonAction:",
+            error
+        );
         throw error;
     }
 }
@@ -106,7 +115,7 @@ export async function getLessonAction(month: string, year: number) {
 export async function getLessonsTotal(
     instructor_id: string,
     month: string,
-    year: number,
+    year: number
 ) {
     const supabase = createClient();
 
@@ -149,7 +158,7 @@ export async function getLessonByIdAction(recordId: number) {
 
 export async function updateLessonInfoAction(
     prevState: FormStateUpdateLesson,
-    data: FormData,
+    data: FormData
 ): Promise<{
     message: string;
     error?: string;

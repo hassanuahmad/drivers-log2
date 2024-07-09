@@ -16,8 +16,8 @@ export default function Alert() {
                         <span className="font-medium text-yellow-700">
                             Pay now to gain access.
                         </span>{" "}
-                        If you wish to leave this page without paying, please sign out using
-                        the button in the top right corner.
+                        If you wish to leave this page without paying, please
+                        sign out using the button in the top right corner.
                     </p>
                 </div>
             </div>

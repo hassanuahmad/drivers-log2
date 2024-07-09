@@ -9,24 +9,24 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Drivers Log - Streamline Your Driving Instruction Workflow",
-  description:
-    "Effortless Lesson Management for Driving Instructors - Optimize Your Teaching with a Platform Designed for Efficient Lesson and Student Tracking, Student Progress, Vehicle Upkeep, and More",
+    title: "Drivers Log - Streamline Your Driving Instruction Workflow",
+    description:
+        "Effortless Lesson Management for Driving Instructors - Optimize Your Teaching with a Platform Designed for Efficient Lesson and Student Tracking, Student Progress, Vehicle Upkeep, and More",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main>{children}</main>
-        <Toaster position="top-right" richColors={true} />
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <main>{children}</main>
+                <Toaster position="top-right" richColors={true} />
+                <Analytics />
+                <SpeedInsights />
+            </body>
+        </html>
+    );
 }

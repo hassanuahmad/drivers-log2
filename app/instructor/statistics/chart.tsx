@@ -49,23 +49,34 @@ export function Chart({ data }: ChartProps) {
                                     axisLine={false}
                                 />
                                 <YAxis
-                                    tickFormatter={(value) => `$${value.toLocaleString()}`}
+                                    tickFormatter={(value) =>
+                                        `$${value.toLocaleString()}`
+                                    }
                                     tick={{ stroke: "#888888", fontSize: 12 }}
                                     tickLine={false}
                                     axisLine={false}
                                 />
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                        if (active && payload && payload.length) {
+                                        if (
+                                            active &&
+                                            payload &&
+                                            payload.length
+                                        ) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
                                                             <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                {payload[0].payload.month}
+                                                                {
+                                                                    payload[0]
+                                                                        .payload
+                                                                        .month
+                                                                }
                                                             </span>
                                                             <span className="font-bold">
-                                                                ${payload[0].value?.toLocaleString()}
+                                                                $
+                                                                {payload[0].value?.toLocaleString()}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -96,7 +107,7 @@ export function Chart({ data }: ChartProps) {
                     <CardTitle>Hours Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="mt-4 sm:mt-0 h-[320px]">
+                    <div className="mt-4 h-[320px] sm:mt-0">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={data}>
                                 <XAxis
@@ -108,7 +119,8 @@ export function Chart({ data }: ChartProps) {
                                 <YAxis
                                     tickFormatter={(value) => {
                                         const hours = Math.floor(value / 60);
-                                        const hoursLabel = hours > 1 ? "hrs" : "hr";
+                                        const hoursLabel =
+                                            hours > 1 ? "hrs" : "hr";
                                         return `${hours}${hoursLabel}`;
                                     }}
                                     tick={{ stroke: "#888888", fontSize: 12 }}
@@ -117,16 +129,27 @@ export function Chart({ data }: ChartProps) {
                                 />
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                        if (active && payload && payload.length) {
+                                        if (
+                                            active &&
+                                            payload &&
+                                            payload.length
+                                        ) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
                                                             <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                {payload[0].payload.month}
+                                                                {
+                                                                    payload[0]
+                                                                        .payload
+                                                                        .month
+                                                                }
                                                             </span>
                                                             <span className="font-bold">
-                                                                {formatTotalHours(payload[0].value as number)}
+                                                                {formatTotalHours(
+                                                                    payload[0]
+                                                                        .value as number
+                                                                )}
                                                             </span>
                                                         </div>
                                                     </div>

@@ -57,14 +57,14 @@ export default function StudentProgressForm() {
                 (lesson: LessonRecordType): StudentProgressLessonType => ({
                     ...lesson,
                     selected_student: Number(lesson.selected_student),
-                }),
-            ),
+                })
+            )
         );
     };
 
     return (
         <>
-            <div className="flex flex-col sm:flex-row justify-between py-4">
+            <div className="flex flex-col justify-between py-4 sm:flex-row">
                 <Popover
                     open={isSelectedStudentOpen}
                     onOpenChange={setIsSelectedStudentOpen}
@@ -103,12 +103,14 @@ export default function StudentProgressForm() {
                                             <Check
                                                 className={cn(
                                                     "mr-2 h-4 w-4",
-                                                    selectedStudent?.id === record.id
+                                                    selectedStudent?.id ===
+                                                        record.id
                                                         ? "opacity-100"
-                                                        : "opacity-0",
+                                                        : "opacity-0"
                                                 )}
                                             />
-                                            {record.first_name} {record.last_name}
+                                            {record.first_name}{" "}
+                                            {record.last_name}
                                         </CommandItem>
                                     ))}
                                 </CommandList>
@@ -155,9 +157,10 @@ export default function StudentProgressForm() {
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>
-                                BDE Report Export: The edit feature is only available in the
-                                full version of our product. Purchase the full version to access
-                                all features and functionality.
+                                BDE Report Export: The edit feature is only
+                                available in the full version of our product.
+                                Purchase the full version to access all features
+                                and functionality.
                             </p>
                         </TooltipContent>
                     </Tooltip>

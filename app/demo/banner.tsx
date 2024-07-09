@@ -28,7 +28,7 @@ export default function Banner() {
                     }}
                 />
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-0 gap-y-2">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-0">
                 <p className="text-sm leading-6 text-gray-900">
                     <strong className="font-semibold">Drivers Log Demo</strong>
                     <svg

@@ -25,8 +25,8 @@ export const DeleteCon = ({ studentId, open, onCancel }: DeleteConProps) => {
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Are you sure you want to delete this student? Once deleted, it
-                        cannot be recovered.
+                        Are you sure you want to delete this student? Once
+                        deleted, it cannot be recovered.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -35,7 +35,8 @@ export const DeleteCon = ({ studentId, open, onCancel }: DeleteConProps) => {
                         className={"bg-red-600 hover:bg-red-500"}
                         onClick={async () => {
                             try {
-                                const deletedStudent = await deleteStudentAction(studentId);
+                                const deletedStudent =
+                                    await deleteStudentAction(studentId);
                                 if (deletedStudent) {
                                     toast.success("Student Deleted", {
                                         duration: 2000,
@@ -47,9 +48,12 @@ export const DeleteCon = ({ studentId, open, onCancel }: DeleteConProps) => {
                                 }
                             } catch (error) {
                                 console.error("Error deleting student:", error);
-                                toast.error("An error occurred while deleting student", {
-                                    duration: 2000,
-                                });
+                                toast.error(
+                                    "An error occurred while deleting student",
+                                    {
+                                        duration: 2000,
+                                    }
+                                );
                             }
                         }}
                     >

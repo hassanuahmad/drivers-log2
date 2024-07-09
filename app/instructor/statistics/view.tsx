@@ -104,7 +104,10 @@ export default function View({ getYearlyStats, yearlyStats }: any) {
                             </SelectTrigger>
                             <SelectContent>
                                 {years.map((year) => (
-                                    <SelectItem key={year} value={year.toString()}>
+                                    <SelectItem
+                                        key={year}
+                                        value={year.toString()}
+                                    >
                                         {year.toString()}
                                     </SelectItem>
                                 ))}

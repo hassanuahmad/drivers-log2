@@ -13,7 +13,9 @@ export default function SectionHeading({
                 <h3 className="text-base font-semibold leading-6 text-gray-900">
                     {title}
                 </h3>
-                <p className="mt-2 max-w-4xl text-sm text-gray-500">{description}</p>
+                <p className="mt-2 max-w-4xl text-sm text-gray-500">
+                    {description}
+                </p>
             </div>
         </>
     );

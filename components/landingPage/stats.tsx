@@ -8,9 +8,9 @@ const stats = [
 export default function Stats() {
     return (
         <>
-            <div className="py-24 sm:py-32 bg-gradient-to-tr from-primary-color-400 via-primary-color-300 to-primary-color-500">
-                <div className="mx-auto container px-6 lg:px-8">
-                    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-8 text-center">
+            <div className="bg-gradient-to-tr from-primary-color-400 via-primary-color-300 to-primary-color-500 py-24 sm:py-32">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <dl className="grid grid-cols-1 gap-x-4 gap-y-8 text-center sm:grid-cols-2">
                         {stats.map((stat) => (
                             <div
                                 key={stat.id}

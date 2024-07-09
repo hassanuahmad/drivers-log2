@@ -60,11 +60,11 @@ export default function Features() {
     return (
         <>
             <div className="container mx-auto">
-                <h2 className="text-3xl font-bold text-center tracking-tight text-gray-900 my-8 sm:text-4xl">
+                <h2 className="my-8 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Management Features
                     <br />
                     Instructors{" "}
-                    <span className="underline underline-offset-4 decoration-primary-color-500">
+                    <span className="underline decoration-primary-color-500 underline-offset-4">
                         Really Want
                     </span>
                 </h2>

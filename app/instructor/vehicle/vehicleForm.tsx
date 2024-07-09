@@ -56,7 +56,7 @@ export default function VehicleForm() {
 
     const today = new Date();
     const formattedToday = `${today.getFullYear()}-${String(
-        today.getMonth() + 1,
+        today.getMonth() + 1
     ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
     const [hiddenDateValue, setHiddenDateValue] = useState(formattedToday);
 
@@ -106,11 +106,17 @@ export default function VehicleForm() {
                                                     variant={"outline"}
                                                     className={cn(
                                                         "pl-3 text-left font-normal",
-                                                        !field.value && "text-muted-foreground",
+                                                        !field.value &&
+                                                            "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
-                                                        format(parseISO(field.value), "PPP")
+                                                        format(
+                                                            parseISO(
+                                                                field.value
+                                                            ),
+                                                            "PPP"
+                                                        )
                                                     ) : (
                                                         <span>Pick a date</span>
                                                     )}
@@ -118,30 +124,46 @@ export default function VehicleForm() {
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0" align="start">
+                                        <PopoverContent
+                                            className="w-auto p-0"
+                                            align="start"
+                                        >
                                             <Calendar
                                                 mode="single"
                                                 selected={
-                                                    field.value ? parseISO(field.value) : undefined
+                                                    field.value
+                                                        ? parseISO(field.value)
+                                                        : undefined
                                                 }
                                                 onSelect={(selectedDate) => {
                                                     if (selectedDate) {
-                                                        const formattedDate = format(
-                                                            selectedDate,
-                                                            "yyyy-MM-dd",
+                                                        const formattedDate =
+                                                            format(
+                                                                selectedDate,
+                                                                "yyyy-MM-dd"
+                                                            );
+                                                        field.onChange(
+                                                            formattedDate
                                                         );
-                                                        field.onChange(formattedDate);
-                                                        setHiddenDateValue(formattedDate);
+                                                        setHiddenDateValue(
+                                                            formattedDate
+                                                        );
                                                     }
                                                 }}
                                                 disabled={(date) =>
-                                                    date > new Date() || date < new Date("1900-01-01")
+                                                    date > new Date() ||
+                                                    date <
+                                                        new Date("1900-01-01")
                                                 }
                                                 initialFocus
                                             />
                                         </PopoverContent>
                                     </Popover>
-                                    <input type="hidden" name="date" value={hiddenDateValue} />
+                                    <input
+                                        type="hidden"
+                                        name="date"
+                                        value={hiddenDateValue}
+                                    />
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -200,7 +222,11 @@ export default function VehicleForm() {
                                 )}
                             />
                         </div>
-                        <Button variant="primary" type="submit" disabled={pending}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={pending}
+                        >
                             Save Maintenance
                         </Button>
                     </div>

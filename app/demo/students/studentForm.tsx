@@ -71,7 +71,10 @@ export default function StudentForm() {
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                >
                     <div className="my-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
                         <FormField
                             control={form.control}
@@ -131,14 +134,19 @@ export default function StudentForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Driving Class</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
                                         <FormControl>
                                             <SelectTrigger>
                                                 <SelectValue />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="G2">G2</SelectItem>
+                                            <SelectItem value="G2">
+                                                G2
+                                            </SelectItem>
                                             <SelectItem value="G">G</SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -152,15 +160,22 @@ export default function StudentForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>BDE</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
                                         <FormControl>
                                             <SelectTrigger>
                                                 <SelectValue />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            <SelectItem value="No">No</SelectItem>
-                                            <SelectItem value="Yes">Yes</SelectItem>
+                                            <SelectItem value="No">
+                                                No
+                                            </SelectItem>
+                                            <SelectItem value="Yes">
+                                                Yes
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
@@ -245,7 +260,11 @@ export default function StudentForm() {
                                 </FormItem>
                             )}
                         />
-                        <Button variant="primary" type="submit" disabled={pending}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={pending}
+                        >
                             Save Student
                         </Button>
                     </div>
