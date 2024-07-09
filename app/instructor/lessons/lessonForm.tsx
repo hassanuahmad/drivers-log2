@@ -124,6 +124,7 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                     className="space-y-8"
                 >
                     <div
+                        id="lesson-form"
                         className={
                             "my-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6"
                         }
@@ -132,7 +133,10 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                             control={form.control}
                             name="selected_student"
                             render={({ field }) => (
-                                <FormItem className="flex flex-col justify-end">
+                                <FormItem
+                                    id="select-student"
+                                    className="flex flex-col justify-end"
+                                >
                                     <FormLabel>Select Student</FormLabel>
                                     <Popover
                                         open={isSelectedStudentOpen}

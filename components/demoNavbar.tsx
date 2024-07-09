@@ -55,12 +55,12 @@ export default function DemoNavbar() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-2 text-gray-900">
                                     {navigation.map((item, itemIdx) => (
-                                        <Link key={itemIdx} href={item.href}>
+                                        <Link key={itemIdx} href={item.href} id={item.name}>
                                             <Button variant="ghost">{item.name}</Button>
                                         </Link>
                                     ))}
                                     <Menu as="div" className="relative inline-block text-left">
-                                        <div>
+                                        <div id="more-button">
                                             <MenuButton className="inline-flex w-full justify-center px-3 py-2 gap-x-1.5 bg-white text-sm rounded-md font-semibold text-gray-700 shadow-sm hover:bg-gray-50">
                                                 More
                                                 <ChevronDownIcon

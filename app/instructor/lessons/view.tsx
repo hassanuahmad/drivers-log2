@@ -113,7 +113,7 @@ export default function View({
                         </Select>
                     </div>
                 </div>
-                <div className="items-center">
+                <div id="monthly-stats" className="items-center">
                     <div className="flex items-center gap-4">
                         <div className="h-10 px-4 py-2 text-sm text-gray-500">
                             <span className="text-sm font-bold text-gray-500">
@@ -133,7 +133,7 @@ export default function View({
                 </div>
             </div>
             {/* Dropdowns End */}
-            <div>
+            <div id="lesson-table">
                 {/* @ts-ignore */}
                 <DataTable columns={columns} data={processedRecords || []} />
             </div>

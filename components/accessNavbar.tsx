@@ -29,6 +29,8 @@ type UserInfoType = {
 export default function AccessNavbar() {
     const router = useRouter();
     const supabase = createClient();
+    const contactUsLink =
+        "https://docs.google.com/forms/d/e/1FAIpQLSf1bQKCC538eKcVEFXSOtBV79zYzR2OuPLEUx8zzeyC5rM-BQ/viewform?usp=sf_link";
     const [userInfo, setUserInfo] = useState<UserInfoType>({
         email: "",
         name: "",
@@ -97,6 +99,12 @@ export default function AccessNavbar() {
                                                     <span className="font-normal">{userInfo.email}</span>
                                                 </DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
+                                                <DropdownMenuItem>
+                                                    <Link href={contactUsLink} target="_blank">
+                                                        Contact Us
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                                <DropdownMenuSeparator />
                                                 <DropdownMenuItem onClick={signOut}>
                                                     Sign Out
                                                 </DropdownMenuItem>
@@ -135,6 +143,14 @@ export default function AccessNavbar() {
                                     </div>
                                 </div>
                                 <div className="mt-3 space-y-1">
+                                    <DisclosureButton
+                                        as="a"
+                                        href={contactUsLink}
+                                        target="_blank"
+                                        className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                                    >
+                                        Contact Us
+                                    </DisclosureButton>
                                     <DisclosureButton
                                         as="a"
                                         onClick={signOut}
