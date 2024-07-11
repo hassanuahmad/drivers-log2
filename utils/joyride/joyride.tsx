@@ -21,7 +21,17 @@ export default function JoyrideComponent() {
                     styles={{
                         options: {
                             primaryColor: "#1ba8a5",
-                            overlayColor: "rgba(0, 0, 0, 0.25)",
+                            overlayColor: "rgba(0, 0, 0, 0.15)",
+                            zIndex: 1000,
+                        },
+                        overlay: {
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            height: "100vh",
+                            width: "100vw",
                         },
                     }}
                 />
