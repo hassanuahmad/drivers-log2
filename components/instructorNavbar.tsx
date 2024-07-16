@@ -28,7 +28,7 @@ import {
 import { useEffect, useState } from "react";
 
 const navigation = [
-    // { name: "Dashboard", href: "/instructor/dashboard" },
+    { name: "Dashboard", href: "/instructor/dashboard" },
     { name: "Lessons", href: "/instructor/lessons" },
     { name: "Students", href: "/instructor/students" },
 ];
