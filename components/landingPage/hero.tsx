@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import hero from "../../public/hero.png";
 import HomePageNavbar from "@/components/homepageNavbar";
+import CustomYouTubeEmbed from "@/components/landingPage/customYouTubeEmbed";
 
 export default function Hero() {
     return (
@@ -46,12 +47,10 @@ export default function Hero() {
                         </div>
                         <div className="mt-16 flow-root sm:mt-24">
                             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                                <img
-                                    src={hero.src}
-                                    alt="App screenshot"
-                                    width={2432}
-                                    height={1442}
-                                    className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
+                                <CustomYouTubeEmbed
+                                    id="-qTPhc-HPc4"
+                                    title="Introduction to Driver's Log Platform"
+                                    thumbnailSrc={hero.src}
                                 />
                             </div>
                         </div>
