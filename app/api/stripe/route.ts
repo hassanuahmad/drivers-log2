@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
             success_url: `${BASE_URL}/instructor/lessons?firstTime=true`,
             cancel_url: `${BASE_URL}/access`,
             automatic_tax: { enabled: true },
+            allow_promotion_codes: true,
         });
 
         if (!session.url) {
