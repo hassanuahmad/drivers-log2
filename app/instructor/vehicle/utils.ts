@@ -9,6 +9,7 @@ export const generateVehicleCsv = (
 ) => {
     const data = records.map((record, index) => ({
         id: index + 1,
+        date: record.date,
         odometer: record.odometer,
         gas: record.gas,
         maintenance: record.maintenance,

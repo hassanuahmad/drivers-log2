@@ -22,6 +22,7 @@ export const generateLessonsCsv = (
     const data = records.map((record, index) => ({
         id: index + 1,
         name: `${record.students.first_name} ${record.students.last_name}`,
+        date: record.date,
         start_time: record.start_time,
         end_time: record.end_time,
         duration: record.duration,
