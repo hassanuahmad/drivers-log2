@@ -87,7 +87,7 @@ export async function getLessonAction(month: string, year: number) {
 
         const { data: lessons, error } = await supabase
             .from("lessons")
-            .select("* , students(first_name, last_name, bde)")
+            .select("* , students(*)")
             .eq("instructor_id", userId)
             .gte("date", startDate.toISOString())
             .lt("date", endDate.toISOString())

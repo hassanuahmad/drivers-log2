@@ -7,11 +7,14 @@ import {
     SelectItem,
     SelectTrigger,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/app/instructor/lessons/data-table";
 import { columns } from "@/app/instructor/lessons/columns";
+import { File } from "lucide-react";
 
 import { createClient } from "@/utils/supabase/client";
 import { monthOptions } from "@/utils/utils";
+import { generateLessonsCsv } from "./utils";
 import TotalNumbers from "@/components/totalNumbers";
 import { LessonTotal, LessonRecord } from "@/types/lessons";
 
@@ -151,6 +154,26 @@ export default function View({
                 {/* @ts-ignore */}
                 <DataTable columns={columns} data={processedRecords || []} />
             </div>
+            {/* Export Button Start */}
+            <div className="flex justify-end py-4">
+                <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-7 gap-1 text-sm"
+                    onClick={() =>
+                        generateLessonsCsv(
+                            // @ts-ignore
+                            allLessonRecords,
+                            selectedMonth,
+                            selectedYear
+                        )
+                    }
+                >
+                    <File className="h-3.5 w-3.5" />
+                    <span className="sr-only sm:not-sr-only">Export CSV</span>
+                </Button>
+            </div>
+            {/* Export Button End */}
         </>
     );
 }
