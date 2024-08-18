@@ -8,12 +8,15 @@ import {
     SelectTrigger,
 } from "@/components/ui/select";
 import { DataTable } from "@/app/instructor/vehicle/data-table";
+import { Button } from "@/components/ui/button";
 import { columns } from "@/app/instructor/vehicle/columns";
 
 import { createClient } from "@/utils/supabase/client";
 import { monthOptions } from "@/utils/utils";
+import { File } from "lucide-react";
 import TotalNumbers from "@/components/totalNumbers";
 import { TotalVehicle, VehicleRecord } from "@/types/vehicle";
+import { generateVehicleCsv } from "./utils";
 
 export default function View({
     getVehicleAction,
@@ -130,6 +133,26 @@ export default function View({
             <div>
                 <DataTable columns={columns} data={allVehicleRecords || []} />
             </div>
+            {/* Export Button Start */}
+            <div className="flex justify-end py-4">
+                <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-7 gap-1 text-sm"
+                    onClick={() =>
+                        generateVehicleCsv(
+                            // @ts-ignore
+                            allVehicleRecords,
+                            selectedMonth,
+                            selectedYear
+                        )
+                    }
+                >
+                    <File className="h-3.5 w-3.5" />
+                    <span className="sr-only sm:not-sr-only">Export CSV</span>
+                </Button>
+            </div>
+            {/* Export Button End */}
         </>
     );
 }
