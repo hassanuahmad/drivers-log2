@@ -2,9 +2,20 @@ import { saveAs } from "file-saver";
 import Papa from "papaparse";
 import { getYearlyLessonsAction, getYearlyVehicleAction } from "./actions";
 
-const generateCsv = (data: any[], fileName: string) => {
-    const csv = Papa.unparse(data);
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+const generateCsv = (
+    lessonData: any[],
+    vehicleData: any[],
+    fileName: string
+) => {
+    const lessonSeparator = "LESSON DATA";
+    const vehicleSeparator = "VEHICLE DATA";
+
+    const lessonCsv = Papa.unparse(lessonData);
+    const vehicleCsv = Papa.unparse(vehicleData);
+
+    const combinedCsv = `${lessonSeparator}\n${lessonCsv}\n\n${vehicleSeparator}\n${vehicleCsv}`;
+
+    const blob = new Blob([combinedCsv], { type: "text/csv;charset=utf-8;" });
     saveAs(blob, fileName);
 };
 
@@ -41,8 +52,7 @@ export const generateYearlyCsv = async (year: number) => {
             remarks: record.remarks,
         }));
 
-        generateCsv(lessonData, `dl-yearly-lessons-${year}.csv`);
-        generateCsv(vehicleData, `dl-yearly-vehicle-${year}.csv`);
+        generateCsv(lessonData, vehicleData, `dl-yearly-data-${year}.csv`);
     } catch (err) {
         console.error("Error generating CSV: ", err);
     }
