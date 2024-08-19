@@ -35,7 +35,10 @@ export const generateYearlyCsv = async (year: number) => {
             start_time: record.start_time,
             end_time: record.end_time,
             duration: record.duration,
-            payment_amount: record.payment_amount,
+            cash_payment:
+                record.payment_type === "Cash" ? record.payment_amount : "",
+            interac_payment:
+                record.payment_type === "Interac" ? record.payment_amount : "",
             bde: record.students.bde,
             road_test: record.road_test,
             address: `${record.students.street_address}, ${record.students.city}, ${record.students.province} ${record.students.postal_code}, ${record.students.country}`,
