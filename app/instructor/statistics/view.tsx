@@ -10,6 +10,7 @@ import {
     Wrench,
     User,
     ClipboardX,
+    File,
 } from "lucide-react";
 import {
     Select,
@@ -19,7 +20,9 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Chart } from "@/app/instructor/statistics/chart";
+import { Button } from "@/components/ui/button";
 import Stats from "@/app/instructor/statistics/stats";
+import { generateYearlyCsv } from "./utils";
 
 export default function View({ getYearlyStats, yearlyStats }: any) {
     const currentYear = new Date().getFullYear();
@@ -92,28 +95,44 @@ export default function View({ getYearlyStats, yearlyStats }: any) {
     return (
         <>
             <div className="my-10">
-                <div className="pb-4">
-                    <Label>Select Year</Label>
-                    <div className="mt-2">
-                        <Select
-                            value={setYear.toString()}
-                            onValueChange={(value) => setYear(Number(value))}
-                        >
-                            <SelectTrigger className="w-[180px]">
-                                {year ? year.toString() : "Select Year"}
-                            </SelectTrigger>
-                            <SelectContent>
-                                {years.map((year) => (
-                                    <SelectItem
-                                        key={year}
-                                        value={year.toString()}
-                                    >
-                                        {year.toString()}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                <div className="flex justify-between pb-4">
+                    <div>
+                        <Label>Select Year</Label>
+                        <div className="mt-2">
+                            <Select
+                                value={setYear.toString()}
+                                onValueChange={(value) =>
+                                    setYear(Number(value))
+                                }
+                            >
+                                <SelectTrigger className="w-[180px]">
+                                    {year ? year.toString() : "Select Year"}
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {years.map((year) => (
+                                        <SelectItem
+                                            key={year}
+                                            value={year.toString()}
+                                        >
+                                            {year.toString()}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
+                    {/* Export Button Start */}
+                    <div className="flex items-end">
+                        <Button
+                            variant="outline"
+                            className="gap-1"
+                            onClick={() => generateYearlyCsv(year)}
+                        >
+                            <File className="h-3.5 w-3.5" />
+                            <span>Export CSV</span>
+                        </Button>
+                    </div>
+                    {/* Export Button End */}
                 </div>
                 <div className="mb-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {statsToDisplay.map((stat, index) => (
