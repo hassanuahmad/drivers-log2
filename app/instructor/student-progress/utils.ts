@@ -5,6 +5,7 @@ import { formatTotalHours } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/client";
 import { StudentProgressLessonType } from "@/types/lessons";
 import { StudentFormValues } from "@/types/shared/forms";
+import { format } from "date-fns";
 
 type PizZipUtilsType = {
     getBinaryContent: (
@@ -124,9 +125,22 @@ export const generateBdeReport = async (records: RecordType[]) => {
                 ? process.env.NEXT_PUBLIC_ONTARIO_LICENCE
                 : "XYZ";
 
+        const student_licence_number = records[0].students.licence_number;
+        const student_licence_issue = records[0].students.issue_date;
+        const student_licence_expiry = records[0].students.expiry_date;
+
         doc.setData({
             first_name: records[0].students.first_name.toUpperCase(),
             last_name: records[0].students.last_name.toUpperCase(),
+            licence_number: student_licence_number
+                ? student_licence_number
+                : "XYZ",
+            licence_issue: student_licence_issue
+                ? student_licence_issue
+                : "XYZ",
+            licence_expiry: student_licence_expiry
+                ? student_licence_expiry
+                : "XYZ",
             address:
                 records[0].students.street_address +
                 " " +
@@ -141,6 +155,7 @@ export const generateBdeReport = async (records: RecordType[]) => {
             i_licence,
             i_expiry,
             o_licence,
+            todays_date: format(new Date(), "PPP"),
         });
 
         try {

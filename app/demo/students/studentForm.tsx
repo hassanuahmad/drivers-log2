@@ -44,6 +44,9 @@ export default function StudentForm() {
         city: "",
         province: "",
         country: "",
+        licence_number: "",
+        issue_date: "",
+        expiry_date: "",
         remarks: "",
     };
 
@@ -57,6 +60,9 @@ export default function StudentForm() {
             ...values,
             id: Math.floor(Math.random() * 10000 + 1),
             email: values.email || "",
+            licence_number: values.licence_number || "",
+            issue_date: values.issue_date || "",
+            expiry_date: values.expiry_date || "",
             remarks: values.remarks || "",
         };
 
@@ -120,7 +126,12 @@ export default function StudentForm() {
                             name="email"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>
+                                        Email{" "}
+                                        <span className="text-xs text-gray-400">
+                                            (Optional)
+                                        </span>
+                                    </FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -249,10 +260,15 @@ export default function StudentForm() {
                         />
                         <FormField
                             control={form.control}
-                            name="remarks"
+                            name="licence_number"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Remarks</FormLabel>
+                                    <FormLabel>
+                                        Licence Number{" "}
+                                        <span className="text-xs text-gray-400">
+                                            (Optional)
+                                        </span>
+                                    </FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -260,6 +276,62 @@ export default function StudentForm() {
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="issue_date"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                        Issue Date{" "}
+                                        <span className="text-xs text-gray-400">
+                                            (Optional)
+                                        </span>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input type="date" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="expiry_date"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                        Expiry Date{" "}
+                                        <span className="text-xs text-gray-400">
+                                            (Optional)
+                                        </span>
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input type="date" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className={"sm:col-span-1 lg:col-span-4"}>
+                            <FormField
+                                control={form.control}
+                                name="remarks"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Remarks{" "}
+                                            <span className="text-xs text-gray-400">
+                                                (Optional)
+                                            </span>
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
                         <Button
                             variant="primary"
                             type="submit"

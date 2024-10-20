@@ -388,7 +388,12 @@ export default function LessonForm() {
                                 name="remarks"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Remarks</FormLabel>
+                                        <FormLabel>
+                                            Remarks{" "}
+                                            <span className="text-xs text-gray-400">
+                                                (Optional)
+                                            </span>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input {...field} />
                                         </FormControl>

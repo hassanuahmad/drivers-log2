@@ -33,6 +33,9 @@ export type StudentFormValues = {
     city: string;
     province: string;
     country: string;
+    licence_number: string;
+    issue_date: string;
+    expiry_date: string;
     remarks: string;
 };
 

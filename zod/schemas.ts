@@ -118,6 +118,9 @@ export const newStudentSchema = z.object({
             invalid_type_error: "Country must be a string",
         })
         .min(1, { message: "Required" }),
+    licence_number: z.string().optional(),
+    issue_date: z.string().optional(),
+    expiry_date: z.string().optional(),
     remarks: z.string().optional(),
 });
 
