@@ -61,6 +61,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
         city,
         province,
         country,
+        licence_number,
+        issue_date,
+        expiry_date,
         remarks,
     } = studentInfo;
 
@@ -90,6 +93,9 @@ export const EditCon = ({ studentInfo, open, onCancel }: EditConProps) => {
         city,
         province,
         country,
+        licence_number,
+        issue_date,
+        expiry_date,
         remarks,
     };
 
