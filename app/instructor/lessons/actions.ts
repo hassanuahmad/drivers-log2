@@ -91,8 +91,8 @@ export async function getLessonAction(month: string, year: number) {
             .eq("instructor_id", userId)
             .gte("date", startDate.toISOString())
             .lt("date", endDate.toISOString())
-            .order("date")
-            .order("start_time");
+            .order("date", { ascending: false })
+            .order("start_time", { ascending: true });
 
         if (error) {
             console.error(
