@@ -74,7 +74,13 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
             toast[variant](description, {
                 duration: 3000,
             });
-            if (message) form.reset(initialLessonFormValues);
+            if (message) {
+                form.reset(initialLessonFormValues);
+                setHiddenDateValue(formattedToday);
+                setHiddenSelectedStudentValue("");
+                setHiddenPaymentTypeValue("Interac");
+                setHiddenRoadTestValue("No");
+            }
         }
     }, [state, toast]);
 
@@ -150,33 +156,31 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                                                     className={cn(
                                                         "justify-between",
                                                         !field.value &&
-                                                            "text-muted-foreground"
+                                                        "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value
-                                                        ? `${
-                                                              studentRecords.find(
-                                                                  (
-                                                                      studentRecord
-                                                                  ) =>
-                                                                      studentRecord.student_id ===
-                                                                      Number(
-                                                                          field.value
-                                                                      )
-                                                              )?.students
-                                                                  .first_name
-                                                          } ${
-                                                              studentRecords.find(
-                                                                  (
-                                                                      studentRecord
-                                                                  ) =>
-                                                                      studentRecord.student_id ===
-                                                                      Number(
-                                                                          field.value
-                                                                      )
-                                                              )?.students
-                                                                  .last_name
-                                                          }`
+                                                        ? `${studentRecords.find(
+                                                            (
+                                                                studentRecord
+                                                            ) =>
+                                                                studentRecord.student_id ===
+                                                                Number(
+                                                                    field.value
+                                                                )
+                                                        )?.students
+                                                            .first_name
+                                                        } ${studentRecords.find(
+                                                            (
+                                                                studentRecord
+                                                            ) =>
+                                                                studentRecord.student_id ===
+                                                                Number(
+                                                                    field.value
+                                                                )
+                                                        )?.students
+                                                            .last_name
+                                                        }`
                                                         : "Select Student"}
                                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                                 </Button>
@@ -270,7 +274,7 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                                                     className={cn(
                                                         "pl-3 text-left font-normal",
                                                         !field.value &&
-                                                            "text-muted-foreground"
+                                                        "text-muted-foreground"
                                                     )}
                                                 >
                                                     {field.value ? (
@@ -316,7 +320,7 @@ export default function LessonForm({ studentRecords }: LessonFormProps) {
                                                 disabled={(date) =>
                                                     date > new Date() ||
                                                     date <
-                                                        new Date("1900-01-01")
+                                                    new Date("1900-01-01")
                                                 }
                                                 initialFocus
                                             />
