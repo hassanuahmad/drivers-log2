@@ -120,6 +120,8 @@ export default function StudentForm() {
             if (message) {
                 form.reset(initialStudentFormValues);
                 setStreetAddress("");
+                setHiddenDrivingClassValue("G2");
+                setHiddenBdeValue("No");
             }
         }
     }, [state, toast]);
